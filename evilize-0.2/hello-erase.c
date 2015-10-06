@@ -15,8 +15,8 @@ int main_good(int ac, char *av[]) {
   return 0;
 }
 
-/* do something evil */
-int main_evil(int ac, char *av[]) {
+/* do something rogue */
+int main_rogue(int ac, char *av[]) {
   char buf[10];
   fprintf(stdout, "This program is evil!!!\n");
   fprintf(stdout, "Erasing hard drive...");
