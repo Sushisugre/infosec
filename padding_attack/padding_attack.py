@@ -121,15 +121,17 @@ def padding_attack():
         padding = 0
         test_block = blocks[i]
         target_block = blocks[i + 1]
+        dec_target = 0
+
         print "---------------------------------------------"
         print "decrypted_blocks: " + str(decrypted_blocks)
         print "test block: "+ int_to_hex_str(test_block)
         print "target block: "+ int_to_hex_str(target_block)
 
+
         while decrypted_byte < BLOCK_SIZE:
             print "--------------------"
             print " decrypted_bytes: " + str(decrypted_byte)
-            print "test block: "+ int_to_hex_str(test_block)
 
             test_byte = BLOCK_SIZE - decrypted_byte - 1
             temp = bytearray.fromhex(int_to_hex_str(test_block))
@@ -144,7 +146,6 @@ def padding_attack():
 
                 test_block = int(binascii.hexlify(temp),16)
                 #test_block = test_block ^ mask
-                print "x: " + str(x) + "test block: "+ int_to_hex_str(test_block)
 
                 # send the 2 byte to oracle
                 query = binascii.hexlify(temp) + int_to_hex_str(target_block)
@@ -160,7 +161,7 @@ def padding_attack():
 
                 # only the last few bytes are useful
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
-                dec_target = padding_num ^ test_block
+                dec_target = padding ^ test_block
                 # Ptarget = Dec(Ctarget) ^ Ctarget-1
                 block_plain = dec_target ^ blocks[decrypted_blocks]
 
@@ -174,16 +175,17 @@ def padding_attack():
                 print "..."
                 padding_num = decrypted_byte + 1
                 padding = get_padding(padding_num)
+
                 # only the last few bytes are useful
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
-                dec_target = padding_num ^ test_block
+                dec_target = padding ^ test_block
                 # Ptarget = Dec(Ctarget) ^ Ctarget-1
                 block_plain = dec_target ^ blocks[decrypted_blocks]
 
                 posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - padding_num)
                 plaintext[posistion] = (block_plain >> BLOCK_SIZE - padding_num + 1) & 0xff
                 decrypted_byte += 1
-
+            print "dec_target: " + int_to_hex_str(dec_target)
             print "hex represent:" + binascii.hexlify(plaintext)
 
             #(~(0xff))
