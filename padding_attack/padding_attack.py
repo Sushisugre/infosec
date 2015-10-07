@@ -10,10 +10,10 @@ import argparse
 import binascii
 import time
 
-# ORACLE_HOST = "127.0.0.1"
-# QUERY_PATH = "/oracle.php?ticket="
-ORACLE_HOST = "stackoverflow.com"
-QUERY_PATH = "/search?q="
+ORACLE_HOST = "127.0.0.1"
+QUERY_PATH = "/oracle.php?ticket="
+# ORACLE_HOST = "stackoverflow.com"
+# QUERY_PATH = "/search?q="
 # cipher text in HW1
 ENCRYPT_TICKET = "0c80353a2c634be44096f9d7977bad4d60dcd000224743105c8eacc3f872e37a2e6c8afdaecba65e8d94754e15a587ea1620cf6b6bc59a0fe5d74400a7cabebbe9fa63236a1a6c90"
 BLOCK_SIZE = 8
@@ -27,14 +27,14 @@ def hasValidPadding(query):
     conn = httplib.HTTPConnection(ORACLE_HOST)
     conn.request("HEAD", QUERY_PATH + query)
 
-    # return conn.getresponse().read();    
     status = conn.getresponse().status;
 
- #   print status
 
     if status == 200:
+        print "----" + status
         return True
     else:
+        print status
         return False
 
 """
@@ -125,7 +125,7 @@ def padding_attack():
             # change 1 byte in testblock, try to generate Px with valid padding
             for x in range(0,256):
                 # add some delay ... http call got block when too frequent
-                time.sleep(2)
+                # time.sleep(2)
                 mask = get_mask(decypted_byte, x)
                 testblock = test_block ^ mask
                 # send the 2 byte to oracle
@@ -162,6 +162,9 @@ def padding_attack():
 
                 decypted_byte += 1
 
+            print "decrypted_blocks: " + decrypted_blocks 
+            + "decrypted_bytes: " + decrypted_bytes
+            print "hex represent:" + binascii.hexlify(plaintext)
 
 
             test_block = test_block^get_padding(decypted_byte + 1)
@@ -173,8 +176,8 @@ def padding_attack():
 
     print reconstruct
 
-    print "hex represent:" + binascii.hexlify(plaintext)
-    print "ascii" + binascii.hexlify(plaintext).decode("hex")
+    print "hex represent: " + binascii.hexlify(plaintext)
+    print "ascii: " + binascii.hexlify(plaintext).decode("hex")
 
     return
 
