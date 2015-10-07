@@ -31,7 +31,7 @@ def hasValidPadding(query):
 
 
     if status == 200:
-        print "----" + status
+        print "----" + str(status)
         return True
     else:
         print status
@@ -55,14 +55,15 @@ def int_to_hex_str(block):
 """
     Generate the mask for updating the test byte of Ci-1
 """
-def get_mask(decypted_byte, num):
-    return num << 8 * decypted_byte
+def get_mask(decrypted_byte, num):
+    return num << 8 * decrypted_byte
 
 """
     When creating valid padding for the first time in a block
     Get the actual numbers of padding byte
 """
 def get_padding_num(test_block, target_block):
+    print "getting padding number"
     # random number for a byte
     mask = 0x3200000000000000
 
@@ -84,6 +85,8 @@ def get_padding(padding_num):
     padding = 0
     for i in range(0, padding_num):
         padding = (padding << 8) + padding_num
+
+    print "padding is: " + hex(padding)
 
     return padding
 
@@ -112,7 +115,7 @@ def padding_attack():
     for decrypted_blocks in range(0, block_num):
 
         i = decrypted_blocks
-        decypted_byte = 0
+        decrypted_byte = 0
         padding_num = 0
         padding = 0
         test_block = blocks[i]
@@ -120,20 +123,20 @@ def padding_attack():
         print "test block: "+ int_to_hex_str(test_block)
         print "target block: "+ int_to_hex_str(target_block)
 
-        while decypted_byte < BLOCK_SIZE:
+        while decrypted_byte < BLOCK_SIZE:
         
             # change 1 byte in testblock, try to generate Px with valid padding
             for x in range(0,256):
                 # add some delay ... http call got block when too frequent
                 # time.sleep(2)
-                mask = get_mask(decypted_byte, x)
+                mask = get_mask(decrypted_byte, x)
                 testblock = test_block ^ mask
                 # send the 2 byte to oracle
                 query = int_to_hex_str(testblock) + int_to_hex_str(target_block)
                 if hasValidPadding(query):
                     break
 
-            if decypted_byte == 0:
+            if decrypted_byte == 0:
                 padding_num = get_padding_num(test_block, target_block)
                 padding = get_padding(padding_num)
 
@@ -147,10 +150,10 @@ def padding_attack():
                     plaintext[posistion] = block_plain & 0xff
                     block_plain >> 8
 
-                decypted_byte = padding_num
+                decrypted_byte = padding_num
             else:
                 print "..."
-                padding_num = decypted_byte + 1
+                padding_num = decrypted_byte + 1
                 padding = get_padding(padding_num)
                 # only the last few bytes are useful
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
@@ -160,14 +163,13 @@ def padding_attack():
 
                 posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - padding_num)
 
-                decypted_byte += 1
+                decrypted_byte += 1
 
-            print "decrypted_blocks: " + decrypted_blocks 
-            + "decrypted_bytes: " + decrypted_bytes
+            print "decrypted_blocks: " + str(decrypted_blocks) + "decrypted_bytes: " + str(decrypted_bytes)
             print "hex represent:" + binascii.hexlify(plaintext)
 
 
-            test_block = test_block^get_padding(decypted_byte + 1)
+            test_block = test_block^get_padding(decrypted_byte + 1)
     
 
     reconstruct = ""
