@@ -132,7 +132,7 @@ def padding_attack():
         while decrypted_byte < BLOCK_SIZE:
             print "--------------------"
             print " decrypted_bytes: " + str(decrypted_byte)
-
+            # the byte is changing to produce a valid padding
             test_byte = BLOCK_SIZE - decrypted_byte - 1
             temp = bytearray.fromhex(int_to_hex_str(test_block))
             temp[test_byte] = 0
@@ -172,31 +172,35 @@ def padding_attack():
 
                 decrypted_byte = padding_num
             else:
-                print "..."
                 padding_num = decrypted_byte + 1
                 padding = get_padding(padding_num)
 
                 # only the last few bytes are useful
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
-                dec_target = padding ^ test_block
+                dec_tmp =  bytearray.fromhex(int_to_hex_str(dec_target))
+                dec_tmp[test_byte] = temp[test_byte] ^ padding_num
+
+                dec_target = int(binascii.hexlify(dec_tmp),16)
                 # Ptarget = Dec(Ctarget) ^ Ctarget-1
-                block_plain = dec_target ^ blocks[decrypted_blocks]
+
+                #block_plain = dec_target ^ blocks[decrypted_blocks]
 
                 posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - padding_num)
-                plaintext[posistion] = (block_plain >> BLOCK_SIZE - padding_num + 1) & 0xff
+                plaintext[posistion] = dec_tmp[test_byte] ^ bytearray.fromhex(int_to_hex_str(blocks[decrypted_blocks]))[test_byte]
+                #plaintext[posistion] = (block_plain >> BLOCK_SIZE - padding_num + 1) & 0xff
                 decrypted_byte += 1
+
             print "dec_target: " + int_to_hex_str(dec_target)
             print "hex represent:" + binascii.hexlify(plaintext)
 
-            #(~(0xff))
-            # 
             test_block = dec_target ^ get_padding(decrypted_byte + 1)
     
 
     reconstruct = ""
     for block in blocks:
         reconstruct = reconstruct + int_to_hex_str(block)
-
+    
+    print "---------------------------------------------"
     print "ciphertext: " + reconstruct
     print "hex represent: " + binascii.hexlify(plaintext)
     print "ascii: " + binascii.hexlify(plaintext).decode("hex")
