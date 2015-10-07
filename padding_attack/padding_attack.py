@@ -8,6 +8,7 @@
 import httplib
 import argparse
 import binascii
+import time
 
 # ORACLE_HOST = "127.0.0.1"
 # QUERY_PATH = "/oracle.php?ticket="
@@ -39,7 +40,7 @@ def hasValidPadding(query):
 """
     Divide the long ciphertext into 16 hex string blocks
 """
-def chuck(string):
+def chunck(string):
     return [ int(string[i:i + BLOCK_SIZE * 2], 16) for i in range(0, len(string), BLOCK_SIZE * 2) ]
 
 """
@@ -54,8 +55,8 @@ def int_to_hex_str(block):
 """
     Generate the mask for updating the test byte of Ci-1
 """
-def get_mask(learned_byte, num):
-    return num << 8 * learned_byte
+def get_mask(decypted_byte, num):
+    return num << 8 * decypted_byte
 
 """
     When creating valid padding for the first time in a block
@@ -102,25 +103,78 @@ def padding_attack():
     # number of block = length/8
     block_num = length >> 3
     # create a bytearray with all 0 to store decrypted text
-    plaintext = bytearray([15]*length)
+    plaintext = bytearray(length)
+    # chunck the cipher text into int blocks
+    blocks = chunck(ciphertext)
 
-    print hex(get_mask(5,9));
+
+
+    for decrypted_blocks in range(0, block_num):
+
+        i = decrypted_blocks
+        decypted_byte = 0
+        padding_num = 0
+        padding = 0
+        test_block = blocks[i]
+        target_block = blocks[i + 1]
+        print "test block: "+ int_to_hex_str(test_block)
+        print "target block: "+ int_to_hex_str(target_block)
+
+        while decypted_byte < BLOCK_SIZE:
+        
+            # change 1 byte in testblock, try to generate Px with valid padding
+            for x in range(0,256):
+                # add some delay ... http call got block when too frequent
+                time.sleep(2)
+                mask = get_mask(decypted_byte, x)
+                testblock = test_block ^ mask
+                # send the 2 byte to oracle
+                query = int_to_hex_str(testblock) + int_to_hex_str(target_block)
+                if hasValidPadding(query):
+                    break
+
+            if decypted_byte == 0:
+                padding_num = get_padding_num(test_block, target_block)
+                padding = get_padding(padding_num)
+
+                # only the last few bytes are useful
+                # Dec(Ctarget) = Ptest(with padding) ^ Ctest
+                dec_target = padding_num ^ test_block
+                # Ptarget = Dec(Ctarget) ^ Ctarget-1
+                block_plain = dec_target ^ decrypted_blocks
+                for y in range(0, padding_num):
+                    posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - y - 1)
+                    plaintext[posistion] = block_plain & 0xff
+                    block_plain >> 8
+
+                decypted_byte = padding_num
+            else:
+                print "..."
+                padding_num = decypted_byte + 1
+                padding = get_padding(padding_num)
+                # only the last few bytes are useful
+                # Dec(Ctarget) = Ptest(with padding) ^ Ctest
+                dec_target = padding_num ^ test_block
+                # Ptarget = Dec(Ctarget) ^ Ctarget-1
+                block_plain = dec_target ^ decrypted_blocks
+
+                posistion = BLOCK_SIZE * decrypted_blocks + (BLOCK_SIZE - padding_num)
+
+                decypted_byte += 1
+
+
+
+            test_block = test_block^get_padding(decypted_byte + 1)
     
-    blocks = chuck(ciphertext)
 
     reconstruct = ""
     for block in blocks:
-        print int_to_hex_str(block)
         reconstruct = reconstruct + int_to_hex_str(block)
 
     print reconstruct
-    print hasValidPadding(ciphertext)
 
-    print get_padding_num(blocks[0],blocks[1])
-
-    print hex(get_padding(3))
-
-    print binascii.hexlify(plaintext)
+    print "hex represent:" + binascii.hexlify(plaintext)
+    print "ascii" + binascii.hexlify(plaintext).decode("hex")
 
     return
 
