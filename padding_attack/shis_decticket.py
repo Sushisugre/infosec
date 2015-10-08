@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Use padding oracle to decrypt DEC encrypted message
+# If no cipher is specified through -c, decrypted the ticket provided in the homework
 #
 # Create by: Shi Su, AndrewId:shis
 # 10/06/2015
@@ -26,13 +27,10 @@ BLOCK_SIZE = 8
 def hasValidPadding(query):
     conn = httplib.HTTPConnection(ORACLE_HOST)
     conn.request("HEAD", QUERY_PATH + query)
-
     status = conn.getresponse().status;
 
-
     if status == 200:
-        #print "----" + str(status)
-        #print "----" + query
+        #print "----" + str(status) + query
         return True
     else:
         return False
@@ -49,8 +47,6 @@ def chunck(string):
     Get the actual numbers of padding byte
 """
 def get_padding_num(test_block, target_block):
-    #print "- getting padding number -"
-    #print binascii.hexlify(test_block)
     
     temp = bytearray(test_block)
     for i in range(0, BLOCK_SIZE):
@@ -60,17 +56,6 @@ def get_padding_num(test_block, target_block):
             break
 
     return BLOCK_SIZE - i
-
-"""
-    Get actual padding when knowning the number of padding
-"""
-def get_padding(padding_num):
-    padding = 0
-    for i in range(0, padding_num):
-        padding = (padding << 8) + padding_num
-
-    return padding
-
 
 def padding_attack():
 
@@ -107,30 +92,21 @@ def padding_attack():
         while decrypted_byte < BLOCK_SIZE:
             print "--------------------"
             print " decrypted_bytes: " + str(decrypted_byte)
-            print " testing: "+ binascii.hexlify(test_block)
             # the byte is changing to produce a valid padding
             test_byte = BLOCK_SIZE - decrypted_byte - 1
         
             # change 1 byte in testblock, try to generate Px with valid padding
             for x in range(0,256):
-
                 test_block[test_byte] = x
                 # send the 2 byte to oracle
                 query = binascii.hexlify(test_block) + binascii.hexlify(target_block)
-
                 if hasValidPadding(query):
                     break
 
             if decrypted_byte == 0:
-                print "decrypted first few bytes"
                 padding_num = get_padding_num(test_block, target_block)
-                padding = get_padding(padding_num)
-
-                # only the last few bytes are useful
+                # The last few byte got decrypted
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
-                print "blocks[decrypted_blocks][7]" + hex(blocks[decrypted_blocks][7])
-
-
                 for y in range( BLOCK_SIZE - padding_num, BLOCK_SIZE):
                     dec_target[y] = test_block[y] ^ padding_num
                     position = BLOCK_SIZE * decrypted_blocks + y
@@ -139,8 +115,6 @@ def padding_attack():
                 decrypted_byte = padding_num
             else:
                 padding_num = decrypted_byte + 1
-                padding = get_padding(padding_num)
-
                 # only the last few bytes are useful
                 # Dec(Ctarget) = Ptest(with padding) ^ Ctest
                 dec_target[test_byte] = test_block[test_byte] ^ padding_num
@@ -152,17 +126,15 @@ def padding_attack():
                 decrypted_byte += 1
 
             print "dec_target: " + binascii.hexlify(dec_target)
-            print "hex represent:" + binascii.hexlify(plaintext)
+            print "decryped:" + binascii.hexlify(plaintext)
 
             #test_block = dec_target ^ get_padding(decrypted_byte + 1)
             for i in range (0, BLOCK_SIZE):
                 test_block[i] = dec_target[i] ^ (padding_num + 1)
     
     print "---------------------------------------------"
-    print "ciphertext: " + reconstruct
-    print "hex represent: " + binascii.hexlify(plaintext)
-    print "ascii: " + binascii.hexlify(plaintext).decode("hex")
-
+    print ""
+    print "plaintext: " + binascii.hexlify(plaintext).decode("hex")
     return
 
 
