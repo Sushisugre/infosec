@@ -2,6 +2,7 @@
 
 import argparse
 import binascii
+from shis_decticket import get_padding_num, hasValidPadding
 
 # Use padding oracle to decrypt DEC encrypted message
 # If no cipher is specified through -c, decrypted the ticket provided in the homework
@@ -10,14 +11,11 @@ import binascii
 # 10/08/2015
 
 BLOCK_SIZE = 8
+
 # the Dec(C) got from decticket.py
+DEC_C_LAST = "d4fa773185b7bcb9"
+CIPHER_LAST = "e9fa63236a1a6c90"
 
-DEC_C = "77a24049491125852df3dbedb51cd82813a8f22c002e304f3deac1aa9650d958480de68ecbe98a7ce8ec052767c0e3c82c02fd5b5bf5b73fd4fa773185b7bcb9"
-#DEC_C_LAST = "d4fa773185b7bcb9"
-#CIPHER_LAST = "e9fa63236a1a6c90"
-
-# IV (C0) from the intercepted cipher
-IV = "0c80353a2c634be4"
 
 def generate_ticket():
     if (args.username is None):
@@ -49,13 +47,8 @@ def int_to_hex_str(block):
     # use replace with 0x because strip removes ending 0s
     return hex_string.replace("0x","").strip('L').zfill(BLOCK_SIZE * 2) 
 
+# this is so ugly, but I don't have time to clean up
 def encrypt_ticket():
-
-    # use the Dec(C) string from decrypted ticket if no new one provided
-    if (args.dec_string is None):
-        dec_string = DEC_C
-    else:
-        dec_string = args.dec_string
 
     ticket = generate_ticket()
     print ticket
@@ -70,18 +63,77 @@ def encrypt_ticket():
 
     # generate blocks
     p_blocks = chunck(hex_ticket)
-    dec_blocks = chunck(dec_string)
 
-    encrypted = ""
-    for i in range(0, len(dec_blocks)):
-        print "C" + str(i)
-        print "P" + str(i+1)
-        print "Dec" + str(i+1)
-        encrypted_block = p_blocks[i] ^ dec_blocks[i]
-        encrypted =  int_to_hex_str(encrypted_block) ＋ encrypted
+    # Use the last block of Dec(C) as last block of new Dec(C)
+    if (args.dec_c_last is None):
+        block_dec = DEC_C_LAST
+    else:
+        block_dec = args.dec_c_last
+
+    # Use the last block of cipher as last block of new cipher
+    if (args.cipher_last is None):
+        block_cipher = CIPHER_LAST
+    else:
+        block_cipher = args.cipher_last
+
+    # start from last block
+    encrypted = block_cipher
+    # count down from last block
+    for i in range(len(p_blocks) - 1, -1, -1):
+
+        print "testing cipher block:" + block_cipher
+        # get Dec(C) of this block
+        if not i == len(p_blocks) - 1:
+            decrypted_byte = 0
+            padding_num = 0
+            padding = 0
+            test_block = bytearray(BLOCK_SIZE)
+            # previous VI being hack as a cipher
+            target_block = bytearray.fromhex(block_cipher)
+            dec_target = bytearray(BLOCK_SIZE)
+
+            while decrypted_byte < BLOCK_SIZE:
+                print "--------------------"
+                print " decrypted_bytes: " + str(decrypted_byte)
+                # the byte is changing to produce a valid padding
+                test_byte = BLOCK_SIZE - decrypted_byte - 1
+            
+                # change 1 byte in testblock, try to generate Px with valid padding
+                for x in range(0,256):
+                    test_block[test_byte] = x
+                    # send the 2 byte to oracle
+                    query = binascii.hexlify(test_block) + binascii.hexlify(target_block)
+                    if hasValidPadding(query):
+                        break
+
+                if decrypted_byte == 0:
+                    padding_num = get_padding_num(test_block, target_block)
+                    # The last few byte got decrypted
+                    # Dec(Ctarget) = Ptest(with padding) ^ Ctest
+                    for y in range( BLOCK_SIZE - padding_num, BLOCK_SIZE):
+                        dec_target[y] = test_block[y] ^ padding_num
+
+                    decrypted_byte = padding_num
+                else:
+                    padding_num = decrypted_byte + 1
+                    # only the last few bytes are useful
+                    # Dec(Ctarget) = Ptest(with padding) ^ Ctest
+                    dec_target[test_byte] = test_block[test_byte] ^ padding_num
+
+                    
+                    decrypted_byte += 1
+
+                print "dec_target: " + binascii.hexlify(dec_target)
+
+                #test_block = dec_target ^ get_padding(decrypted_byte + 1)
+                for i in range (0, BLOCK_SIZE):
+                    test_block[i] = dec_target[i] ^ (padding_num + 1)
+
+        block_cipher = int_to_hex_str(p_blocks[i] ^ int(block_dec, 16))
+        encrypted = block_cipher + encrypted
         print encrypted
 
-    print encrypted
+    print "Encrypted: " + encrypted
 
 
 
@@ -91,6 +143,7 @@ if __name__ == "__main__":
    parser.add_argument('-u','--username', help='Username')
    parser.add_argument('-a','--is_admin', help='Is the user admin, true/false')
    parser.add_argument('-e','--expiration', help='Expiration date of the ticket, e.g. 2015-10-07')
-   parser.add_argument('-d','--dec_string', help='Dec(C) string used for encrypting the ticket')
+   parser.add_argument('-d','--dec_c_last', help='Last block of Dec(C) text used for encrypting the ticket')
+   parser.add_argument('-c','--cipher_last', help='Last block of the cipher text')
    args = parser.parse_args()
    encrypt_ticket()
