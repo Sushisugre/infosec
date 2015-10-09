@@ -9,7 +9,6 @@
 import httplib
 import argparse
 import binascii
-import time
 
 ORACLE_HOST = "127.0.0.1"
 QUERY_PATH = "/oracle.php?ticket="
@@ -73,6 +72,8 @@ def padding_attack():
     plaintext = bytearray(length)
     # chunck the cipher text into int blocks
     blocks = chunck(ciphertext)
+    # get the dec(C) in order to make the golden ticket
+    dec_cipher = ""
 
     for decrypted_blocks in range(0, block_num):
 
@@ -131,10 +132,12 @@ def padding_attack():
             #test_block = dec_target ^ get_padding(decrypted_byte + 1)
             for i in range (0, BLOCK_SIZE):
                 test_block[i] = dec_target[i] ^ (padding_num + 1)
+
+        dec_cipher = dec_cipher +  binascii.hexlify(dec_target)
     
     print "---------------------------------------------"
-    print ""
-    print "plaintext: " + binascii.hexlify(plaintext).decode("hex")
+    print "Dec(C): " + dec_cipher
+    print "Plaintext: " + binascii.hexlify(plaintext).decode("hex")
     return
 
 
