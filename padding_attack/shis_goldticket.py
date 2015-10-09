@@ -80,8 +80,9 @@ def encrypt_ticket():
     encrypted = block_cipher
     # count down from last block
     for i in range(len(p_blocks) - 1, -1, -1):
-
+        print str(i)
         print "testing cipher block:" + block_cipher
+        print "plain text: " + int_to_hex_str(p_blocks[i])
         # get Dec(C) of this block
         if not i == len(p_blocks) - 1:
             decrypted_byte = 0
@@ -126,12 +127,15 @@ def encrypt_ticket():
                 print "dec_target: " + binascii.hexlify(dec_target)
 
                 #test_block = dec_target ^ get_padding(decrypted_byte + 1)
-                for i in range (0, BLOCK_SIZE):
-                    test_block[i] = dec_target[i] ^ (padding_num + 1)
+                for z in range (0, BLOCK_SIZE):
+                    test_block[z] = dec_target[z] ^ (padding_num + 1)
 
         block_cipher = int_to_hex_str(p_blocks[i] ^ int(block_dec, 16))
         encrypted = block_cipher + encrypted
         print encrypted
+    
+
+    print "----------------------------------------"
 
     print "Encrypted: " + encrypted
 
