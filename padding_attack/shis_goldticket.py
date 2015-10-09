@@ -16,9 +16,6 @@ BLOCK_SIZE = 8
 DEC_C_LAST = "d4fa773185b7bcb9"
 CIPHER_LAST = "e9fa63236a1a6c90"
 
-DEC_C = "77a24049491125852df3dbedb51cd82813a8f22c002e304f3deac1aa9650d958480de68ecbe98a7ce8ec052767c0e3c82c02fd5b5bf5b73fd4fa773185b7bcb9"
-
-CIPHER = "4096f9d7977bad4d60dcd000224743105c8eacc3f872e37a2e6c8afdaecba65e8d94754e15a587ea1620cf6b6bc59a0fe5d74400a7cabebbe9fa63236a1a6c90"
 
 def generate_ticket():
     if (args.username is None):
@@ -32,7 +29,7 @@ def generate_ticket():
         is_admin = args.is_admin
 
     if (args.expiration is None):
-        expiration = "3000-01-31"
+        expiration = "2022-01-31"
     else:
         expiration = args.expiration
 
@@ -86,12 +83,12 @@ def encrypt_ticket():
     encrypted = block_cipher
     # count down from last block
     for i in range(len(p_blocks) - 1, -1, -1):
-        print str(i)
-        print "testing cipher block:" + block_cipher
-        print "plain text: " + int_to_hex_str(p_blocks[i])
+        print "----------------------------------------"
+        print "testing cipher block " + str(i)+ " :" + block_cipher
+        print "plain text:" + int_to_hex_str(p_blocks[i])
+
         # get Dec(C) of this block
-        #if not i == len(p_blocks) - 1:
-        if i == 0:
+        if not i == len(p_blocks) - 1:
             decrypted_byte = 0
             padding_num = 0
             padding = 0
@@ -133,18 +130,17 @@ def encrypt_ticket():
 
                 print "dec_target: " + binascii.hexlify(dec_target)
 
-                #test_block = dec_target ^ get_padding(decrypted_byte + 1)
                 for z in range (0, BLOCK_SIZE):
                     test_block[z] = dec_target[z] ^ (padding_num + 1)
 
-        block_dec = binascii.hexlify(dec_target)
+            block_dec = binascii.hexlify(dec_target)
+        # Ci-1 = Pi ^ DEC(Ci)    
         block_cipher = int_to_hex_str(p_blocks[i] ^ int(block_dec, 16))
         encrypted = block_cipher + encrypted
         print encrypted
     
 
     print "----------------------------------------"
-
     print "Encrypted: " + encrypted
 
 
