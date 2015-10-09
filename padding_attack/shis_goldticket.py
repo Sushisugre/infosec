@@ -64,9 +64,6 @@ def encrypt_ticket():
     # generate blocks
     p_blocks = chunck(hex_ticket)
 
-    c_blocks = chunck(CIPHER)
-    d_blocks = chunck(DEC_C)
-
     # Use the last block of Dec(C) as last block of new Dec(C)
     if (args.dec_c_last is None):
         block_dec = DEC_C_LAST
