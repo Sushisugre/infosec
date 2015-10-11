@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Use padding oracle to decrypt DEC encrypted message
+# Use padding oracle to decrypt DES encrypted message
 # If no cipher is specified through -c, decrypted the ticket provided in the homework
 #
 # Create by: Shi Su, AndrewId:shis

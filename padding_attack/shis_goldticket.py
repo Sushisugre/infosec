@@ -4,8 +4,7 @@ import argparse
 import binascii
 from shis_decticket import get_padding_num, hasValidPadding
 
-# Use padding oracle to decrypt DEC encrypted message
-# If no cipher is specified through -c, decrypted the ticket provided in the homework
+# Use padding oracle to encrypt message
 #
 # Create by: Shi Su, AndrewId:shis
 # 10/08/2015
@@ -131,14 +130,14 @@ def encrypt_ticket():
                     test_block[z] = dec_target[z] ^ (padding_num + 1)
 
             block_dec = binascii.hexlify(dec_target)
+       
         # Ci-1 = Pi ^ DEC(Ci)    
         block_cipher = int_to_hex_str(p_blocks[i] ^ int(block_dec, 16))
         encrypted = block_cipher + encrypted
-        print encrypted
-    
+        print "Encrypted: " + encrypted    
 
     print "----------------------------------------"
-    print "Encrypted: " + encrypted
+    print "Cipher Text: " + encrypted
 
 
 

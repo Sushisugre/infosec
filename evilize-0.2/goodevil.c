@@ -12,9 +12,12 @@ char *str1 = CRIB "0";
 char *str2 = CRIB "1";
 
 int main(int ac, char *av[]) {
+  
   if (memcmp(str1, str2, 191) == 0) {
+    // if str1 == str2
     return main_good(ac, av);
   } else {
+    // if str1 != str2
     return main_evil(ac, av);
   }
 }
