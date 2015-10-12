@@ -95,7 +95,7 @@ def encrypt_ticket():
 
             while decrypted_byte < BLOCK_SIZE:
                 print "--------------------"
-                print " decrypted_bytes: " + str(decrypted_byte)
+                print " encrypted_bytes: " + str(decrypted_byte)
                 # the byte is changing to produce a valid padding
                 test_byte = BLOCK_SIZE - decrypted_byte - 1
             
