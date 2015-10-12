@@ -89,7 +89,7 @@ PGP/MIME, because PGP/inline only encrypt the plain text inside the email messag
 \textbf{Problem \#2 : Padding attack}
 \end{center}
 
-Python script available in {\bf shis\_hw1\slash MD5\_collisions\slash}
+Python script available in {\bf shis\_hw1\slash padding\_attack\slash}
 
 \medskip
 {\bf Decryption Function}\\
@@ -135,10 +135,15 @@ Use ``-h" for more information\\
 \item Write a script file contains 2 methods perform different tasks, compile it with a main body contains a switch to choose between the methods using 2 placeholder ``crib" strings.\\
 \item Read the first block and get the MD5 initial vector of the executable generated from step 1.\\
 \item Given the initial vector, find the MD5 collision pair using the method of Wang and Yu.\\
-\item Copy the executable file from step 1 to create 2 executable, at the same time replace the ``crib" string with one of the collision pair into each new executable. 
+\item Copy the executable file from step 1 to create 2 executable, at the same time replace the ``crib" string with one of the collision pair in each new executable. 
 \end{enumerate}
 \begin{answer}
 Thus most of the content of the 2 executables are the same, except the collision pair. Because of the switch in the main function, they have different behavior, and according to Wang and Yu's work, they will have same MD5 hash.
+\end{answer}
+\bigskip
+2. Generate MD5 collision executables\\
+\begin{answer}
+Executables available in {\bf shis\_hw1\slash MD5\_collisions\slash}
 \end{answer}
 \bigskip
 3. Answers to the following questions:
@@ -149,9 +154,10 @@ Thus most of the content of the 2 executables are the same, except the collision
           
       \item We saw here how to use this attack on an executable. How would you go about implementing such attack on a document? Which feature must the document format have? Is it possible to carry out such an attack in a completely stealth manner on an ASCII document?
 
-     Selinger's attack requires each file contains both version of content, to implement this attack on document, the document format must support hidden contents. So it's not possible carry this attack on an ASCII document. In an ASCII document, there's no way to hide the extra data especially the ascii characters.
+     Implementing this attack on document is basically the same as on executable file, put 2 version of content in one document, use generated MD5 collision block pair to control which version to display. This method from  Selinger requires each file contains both version of content, so the document format must support hidden contents and constructing dynamic content, for example pdf and tiff.[1] So it's not possible carry this attack on an ASCII document. In an ASCII document, there's no way to hide the extra data especially the ascii characters.
 \end{itemize}
 
+[1] Csrc.nist.gov,. (2015). Retrieved 12 October 2015, from http://csrc.nist.gov/groups/ST/hash/documents/Illies\_NIST\_05.pdf
 
 %
 % Problem 4
