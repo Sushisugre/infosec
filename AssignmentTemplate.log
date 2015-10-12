@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.8.28)  10 OCT 2015 22:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.8.28)  12 OCT 2015 13:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -191,19 +191,19 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 (./AssignmentTemplate.aux)
 \openout1 = `AssignmentTemplate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 50.
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -243,10 +243,10 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 46.
+LaTeX Info: Redefining \selectfont on input line 50.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 46.
+(lastpage)             ! on input line 50.
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -334,28 +334,29 @@ e
 \Gin@req@width=\dimen132
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 56.
  [1{/usr/local/texlive/2015basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 97.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 115.
+
  (/usr/local/texlive/2015basic/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
 
-[2] [3] [4] 
+[2] [3] 
 AED: lastpage setting LastPage
-[5] (./AssignmentTemplate.aux) ) 
+[4] (./AssignmentTemplate.aux) ) 
 Here is how much of TeX's memory you used:
- 3485 strings out of 494501
- 51033 string characters out of 6167030
- 121649 words of memory out of 5000000
- 6709 multiletter control sequences out of 15000+600000
- 10261 words of font info for 30 fonts, out of 8000000 for 9000
+ 3490 strings out of 494501
+ 51077 string characters out of 6167030
+ 121664 words of memory out of 5000000
+ 6712 multiletter control sequences out of 15000+600000
+ 11945 words of font info for 32 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 51i,10n,43p,525b,206s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,10n,43p,526b,206s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015basic/texmf-dist/fonts/
 enc/dvips/base/8r.enc}</usr/local/texlive/2015basic/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/
@@ -364,11 +365,12 @@ e1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015basic/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015basic/texmf-dist/
 fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015basic/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb>
-Output written on AssignmentTemplate.pdf (5 pages, 79256 bytes).
+/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on AssignmentTemplate.pdf (4 pages, 86417 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
+ 50 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
