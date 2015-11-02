@@ -1,8 +1,9 @@
 #include <stdlib.h>
  
-int main(void) {
+int main(int argc, char **argv) {
  
-    system("ls -l >test.txt");
+    // spwan a shell
+    system("/bin/sh");
  
     return 0;
 }
