@@ -1,0 +1,47 @@
+/*----------------------------------------------------------
+ * function:        grok_commandLine
+ * parameters:  argc -- int of the number of command line args
+ *                          argv -- char pointer to an array of command line args
+ * returns:         void
+ * desciption:  set some variables for the program based on 
+ *                          user requests
+ *----------------------------------------------------------*/
+void grok_commandLine(int argc, char *argv[]){
+    int o;
+
+    while( ( o = getopt( argc, argv, "achtvf:" ) ) != -1 ){
+        switch( o ){
+            case 'a':
+                hidden = 1;
+                break;
+            case 'c':
+                clean = 1;
+                break;
+            case 'f':
+                strcpy( target, optarg );
+                break;
+            case 'h':
+                fprintf( stderr,"polymorph v%s -- filename convertor\n", VERSION );
+        fprintf( stderr,"written by Gerall Kahla.\n\n" );
+                fprintf( stderr,"-a  all      convert hidden files\n" );
+                fprintf( stderr,"-c clean        reduce a file's name to just after the last backslash\n" );
+                fprintf( stderr,"-f  file     convert this file to a name with all lowercase letters\n" );
+                fprintf( stderr,"-h  help     print this message and exit\n" );
+                fprintf( stderr,"-t  track    track down the targets of symlinks and convert them\n" );
+                fprintf( stderr,"-v  version  print the version number and exit\n" );
+                fprintf( stderr,"\n" );
+                exit( 0 );
+            case 't':
+                track = 1;
+                break;
+            case 'v':
+                fprintf( stderr,"polymorph v%s\n", VERSION );
+                exit( 0 );
+            default:
+                fprintf( stderr,"please run 'polymorph -h' for commandline options\n" );
+                fprintf( stderr,"polymorph terminated\n" );
+                exit( 0 );
+        }
+    }
+
+}/* end of grok_commandLine */

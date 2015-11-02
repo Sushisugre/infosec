@@ -1,0 +1,44 @@
+student@student-VirtualBox:~/polymorph-0.4.0$ ./ROPgadget --binary polymorph > gadgets.txt
+./ROPgadget: unrecognized option '--binary'
+Gadgets information
+============================================================
+0x0804868e(null): jmp *(%ebx)  
+0x0804869a(null): add $0x08
+0x0804869d(null): pop %ebx ; ret
+0x080488a0(8b 1c 24 c3): mov (%esp),%ebx ; ret
+0x080488d3(ff d0): call *%eax
+0x0804890d(ff d2): call *%edx
+0x08048bfb(null): jmp *%eax
+0x08049134(null): mov $0x00000000
+0x08049139(null): pop %ebp ; ret
+0x080499c8(null): pop %ebx ; pop %esi ; pop %edi ; pop %ebp ; ret
+0x080499e2(null): mov $0x81ffffee
+0x080499fe(null): add $0x18
+0x0804a0d3(null): call *%esi
+0x0804a14a(null): inc %ecx ; ret
+
+Unique gadgets found: 14
+This binary depends on shared libraries (you might want to check these):
+    libc.so.6
+
+
+Possible combinations.
+============================================================
+
+	- .......... => mov %eax,(%e?x)
+	- .......... => pop %eax
+	- 0x0804869d(null) => pop %ebx ; ret
+	- .......... => pop %ecx
+	- .......... => pop %edx
+	- .......... => xor %eax,%eax
+	- .......... => inc %eax
+	- .......... => inc %ax
+	- .......... => inc %al
+	- .......... => int $0x80
+	- .......... => sysenter
+	- 0x08049139(null) => pop %ebp ; ret
+	- 0x0804c0c0(null) => .data Addr
+[-] Combo was not found.
+
+
+
