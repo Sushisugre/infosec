@@ -388,7 +388,7 @@ Possible combinations.
 	- 0x000b83a7(null) => pop %ecx ; ret
 	- 0x00001aa6(null) => pop %edx ; ret
 	- 0x0002ca4c(null) => xor %eax,%eax ; ret
-	- 0x000063c8(null) => inc %eax ; ret
+	- 0x000063c8(null) => / ; ret
 	- .......... => inc %ax
 	- .......... => inc %al
 	- 0x0002c0f5(null) => int $0x80
