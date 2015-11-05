@@ -30,3 +30,15 @@ newname 0xbfffbfdc
 gdb 0xbffff3b9
 shell 0xbffffb8
 c 0xbffffb1
+
+
+return 0xbfffcfec
+newname 0xbfffbfcc
+arg1 0xbfffcff0
+
+before return
+    ebp 0xbfffcfe8
+    esp 0xbfffbfd0
+after return
+    ebp 0xbffff038 // will change because of overflow
+    esp 0xbfffe01c 0xbfffe020
