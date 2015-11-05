@@ -544,6 +544,175 @@
 0x00122ea0(null): mov (%esp),%edx ; ret
 
 0x00078dc7(null): inc %eax ; pop %edi ; pop %esi ; ret
+00078be0 <memchr>:
+   78be0: 53                    push   %ebx
+   78be1: e8 af a2 0a 00        call   122e95 <__frame_state_for+0x375>
+   78be6: 81 c3 1a e4 13 00     add    $0x13e41a,%ebx
+   78bec: 83 bb 40 3a 00 00 00  cmpl   $0x0,0x3a40(%ebx)
+   78bf3: 75 05                 jne    78bfa <memchr+0x1a>
+   78bf5: e8 36 fe f9 ff        call   18a30 <gnu_get_libc_version+0x1c0>
+   78bfa: f7 83 54 3a 00 00 00  testl  $0x4000000,0x3a54(%ebx)
+   78c01: 00 00 04 
+   78c04: 74 14                 je     78c1a <memchr+0x3a>
+   78c06: f7 83 80 3a 00 00 04  testl  $0x4,0x3a80(%ebx)
+   78c0d: 00 00 00 
+   78c10: 74 10                 je     78c22 <memchr+0x42>
+   78c12: 8d 83 90 c9 f8 ff     lea    -0x73670(%ebx),%eax
+   78c18: 5b                    pop    %ebx
+   78c19: c3                    ret    
+   78c1a: 8d 83 30 1c ec ff     lea    -0x13e3d0(%ebx),%eax
+   78c20: 5b                    pop    %ebx
+   78c21: c3                    ret    
+   78c22: 8d 83 f0 b6 ed ff     lea    -0x124910(%ebx),%eax
+   78c28: 5b                    pop    %ebx
+   78c29: c3                    ret    
+   78c2a: 8d b6 00 00 00 00     lea    0x0(%esi),%esi
+   78c30: 56                    push   %esi
+   78c31: 57                    push   %edi
+   78c32: 8b 44 24 0c           mov    0xc(%esp),%eax
+   78c36: 8b 54 24 10           mov    0x10(%esp),%edx
+   78c3a: 8b 74 24 14           mov    0x14(%esp),%esi
+   78c3e: 83 fe 04              cmp    $0x4,%esi
+   78c41: 0f 82 48 01 00 00     jb     78d8f <memchr+0x1af>
+   78c47: 88 d6                 mov    %dl,%dh
+   78c49: 89 d1                 mov    %edx,%ecx
+   78c4b: c1 e2 10              shl    $0x10,%edx
+   78c4e: 66 89 ca              mov    %cx,%dx
+   78c51: a8 03                 test   $0x3,%al
+   78c53: 0f 84 cd 00 00 00     je     78d26 <memchr+0x146>
+   78c59: 38 10                 cmp    %dl,(%eax)
+   78c5b: 0f 84 67 01 00 00     je     78dc8 <memchr+0x1e8>
+   78c61: 40                    inc    %eax
+   78c62: 4e                    dec    %esi
+   78c63: 0f 84 3f 01 00 00     je     78da8 <memchr+0x1c8>
+   78c69: a8 03                 test   $0x3,%al
+   78c6b: 0f 84 b5 00 00 00     je     78d26 <memchr+0x146>
+   78c71: 38 10                 cmp    %dl,(%eax)
+   78c73: 0f 84 4f 01 00 00     je     78dc8 <memchr+0x1e8>
+   78c79: 40                    inc    %eax
+   78c7a: 4e                    dec    %esi
+   78c7b: 0f 84 27 01 00 00     je     78da8 <memchr+0x1c8>
+   78c81: a8 03                 test   $0x3,%al
+   78c83: 0f 84 9d 00 00 00     je     78d26 <memchr+0x146>
+   78c89: 38 10                 cmp    %dl,(%eax)
+   78c8b: 0f 84 37 01 00 00     je     78dc8 <memchr+0x1e8>
+   78c91: 40                    inc    %eax
+   78c92: 4e                    dec    %esi
+   78c93: e9 8e 00 00 00        jmp    78d26 <memchr+0x146>
+   78c98: 90                    nop
+   78c99: 8d b4 26 00 00 00 00  lea    0x0(%esi,%eiz,1),%esi
+   78ca0: 8b 08                 mov    (%eax),%ecx
+   78ca2: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78ca7: 31 d1                 xor    %edx,%ecx
+   78ca9: 01 cf                 add    %ecx,%edi
+   78cab: 0f 83 04 01 00 00     jae    78db5 <memchr+0x1d5>
+   78cb1: 31 cf                 xor    %ecx,%edi
+   78cb3: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78cb9: 47                    inc    %edi
+   78cba: 0f 85 f5 00 00 00     jne    78db5 <memchr+0x1d5>
+   78cc0: 8b 48 04              mov    0x4(%eax),%ecx
+   78cc3: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78cc8: 31 d1                 xor    %edx,%ecx
+   78cca: 01 cf                 add    %ecx,%edi
+   78ccc: 0f 83 e0 00 00 00     jae    78db2 <memchr+0x1d2>
+   78cd2: 31 cf                 xor    %ecx,%edi
+   78cd4: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78cda: 47                    inc    %edi
+   78cdb: 0f 85 d1 00 00 00     jne    78db2 <memchr+0x1d2>
+   78ce1: 8b 48 08              mov    0x8(%eax),%ecx
+   78ce4: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78ce9: 31 d1                 xor    %edx,%ecx
+   78ceb: 01 cf                 add    %ecx,%edi
+   78ced: 0f 83 bc 00 00 00     jae    78daf <memchr+0x1cf>
+   78cf3: 31 cf                 xor    %ecx,%edi
+   78cf5: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78cfb: 47                    inc    %edi
+   78cfc: 0f 85 ad 00 00 00     jne    78daf <memchr+0x1cf>
+   78d02: 8b 48 0c              mov    0xc(%eax),%ecx
+   78d05: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78d0a: 31 d1                 xor    %edx,%ecx
+   78d0c: 01 cf                 add    %ecx,%edi
+   78d0e: 0f 83 98 00 00 00     jae    78dac <memchr+0x1cc>
+   78d14: 31 cf                 xor    %ecx,%edi
+   78d16: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78d1c: 47                    inc    %edi
+   78d1d: 0f 85 89 00 00 00     jne    78dac <memchr+0x1cc>
+   78d23: 83 c0 10              add    $0x10,%eax
+   78d26: 83 ee 10              sub    $0x10,%esi
+   78d29: 0f 83 71 ff ff ff     jae    78ca0 <memchr+0xc0>
+   78d2f: 83 fe f4              cmp    $0xfffffff4,%esi
+   78d32: 72 5b                 jb     78d8f <memchr+0x1af>
+   78d34: 8b 08                 mov    (%eax),%ecx
+   78d36: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78d3b: 31 d1                 xor    %edx,%ecx
+   78d3d: 01 cf                 add    %ecx,%edi
+   78d3f: 73 74                 jae    78db5 <memchr+0x1d5>
+   78d41: 31 cf                 xor    %ecx,%edi
+   78d43: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78d49: 47                    inc    %edi
+   78d4a: 75 69                 jne    78db5 <memchr+0x1d5>
+   78d4c: 83 c0 04              add    $0x4,%eax
+   78d4f: 83 fe f8              cmp    $0xfffffff8,%esi
+   78d52: 72 3b                 jb     78d8f <memchr+0x1af>
+   78d54: 8b 08                 mov    (%eax),%ecx
+   78d56: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78d5b: 31 d1                 xor    %edx,%ecx
+   78d5d: 01 cf                 add    %ecx,%edi
+   78d5f: 73 54                 jae    78db5 <memchr+0x1d5>
+   78d61: 31 cf                 xor    %ecx,%edi
+   78d63: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78d69: 47                    inc    %edi
+   78d6a: 75 49                 jne    78db5 <memchr+0x1d5>
+   78d6c: 83 c0 04              add    $0x4,%eax
+   78d6f: 83 fe fc              cmp    $0xfffffffc,%esi
+   78d72: 72 1b                 jb     78d8f <memchr+0x1af>
+   78d74: 8b 08                 mov    (%eax),%ecx
+   78d76: bf ff fe fe fe        mov    $0xfefefeff,%edi
+   78d7b: 31 d1                 xor    %edx,%ecx
+   78d7d: 01 cf                 add    %ecx,%edi
+   78d7f: 73 34                 jae    78db5 <memchr+0x1d5>
+   78d81: 31 cf                 xor    %ecx,%edi
+   78d83: 81 cf ff fe fe fe     or     $0xfefefeff,%edi
+   78d89: 47                    inc    %edi
+   78d8a: 75 29                 jne    78db5 <memchr+0x1d5>
+   78d8c: 83 c0 04              add    $0x4,%eax
+   78d8f: 83 e6 03              and    $0x3,%esi
+   78d92: 74 14                 je     78da8 <memchr+0x1c8>
+   78d94: 38 10                 cmp    %dl,(%eax)
+   78d96: 74 30                 je     78dc8 <memchr+0x1e8>
+   78d98: 40                    inc    %eax
+   78d99: 4e                    dec    %esi
+   78d9a: 74 0c                 je     78da8 <memchr+0x1c8>
+   78d9c: 38 10                 cmp    %dl,(%eax)
+   78d9e: 74 28                 je     78dc8 <memchr+0x1e8>
+   78da0: 40                    inc    %eax
+   78da1: 4e                    dec    %esi
+   78da2: 74 04                 je     78da8 <memchr+0x1c8>
+   78da4: 38 10                 cmp    %dl,(%eax)
+   78da6: 74 20                 je     78dc8 <memchr+0x1e8>
+   78da8: 31 c0                 xor    %eax,%eax
+   78daa: eb 1c                 jmp    78dc8 <memchr+0x1e8>
+   78dac: 83 c0 04              add    $0x4,%eax
+   78daf: 83 c0 04              add    $0x4,%eax
+   78db2: 83 c0 04              add    $0x4,%eax
+   78db5: 84 c9                 test   %cl,%cl
+   78db7: 74 0f                 je     78dc8 <memchr+0x1e8>
+   78db9: 40                    inc    %eax
+   78dba: 84 ed                 test   %ch,%ch
+   78dbc: 74 0a                 je     78dc8 <memchr+0x1e8>
+   78dbe: 40                    inc    %eax
+   78dbf: f7 c1 00 00 ff 00     test   $0xff0000,%ecx
+   78dc5: 74 01                 je     78dc8 <memchr+0x1e8>
+   78dc7: 40                    inc    %eax
+   78dc8: 5f                    pop    %edi
+   78dc9: 5e                    pop    %esi
+   78dca: c3                    ret    
+   78dcb: 66 90                 xchg   %ax,%ax
+   78dcd: 66 90                 xchg   %ax,%ax
+   78dcf: 90                    nop
+
+
+
 
 # doesn't work contains upper case
 0x0003d5bb(null): inc %eax ; inc %eax ; ret
