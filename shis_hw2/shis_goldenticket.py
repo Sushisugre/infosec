@@ -79,11 +79,14 @@ def timing_attack():
     MAC = ""
     # initialize array
     MAC_array = bytearray([0] * 32)
+    dict_progress = []
     dict_time = {}
 
     for i in range (0, 32):
         # One time result maybe unreliable, 
         for j in range (0, 16):
+            if i = 0:
+                dict_progress.append([])
             for k in range (0, RETRY):
                 # from left to right, test the value of one byte
                 print str(i)+",("+str(k+1)+"/"+str(RETRY)+"),"+str(j)
@@ -97,18 +100,27 @@ def timing_attack():
                 print "interval: " + str(interval)
 
                 # add the response time to dictionary with previous result
-                if not j in dict_time:
-                    dict_time[j] = interval
-                else:
+                # if not j in dict_time:
+                #     #dict_time[j] = interval
+                #     dict_progress[j].append(interval)
+                # else:
                     #if not interval > dict_time[j] * 2:
-                    dict_time[j] = interval + dict_time[j]
-		
-	    dict_time[j] = dict_time[j] / k
+                    #dict_time[j] = interval + dict_time[j]
+                dict_progress[j].append(interval)
+		    # get the average from the 400 smallest response time 
+            dict_progress[j].sort()
+            sum = 0
+            for n in range (0, 400):
+                sum += dict_progress[j][n]
+            dict_time[j] = sum/400 
+            dict_progress[j][:]=[]
+	    #dict_time[j] = dict_time[j] / k
         # the one with statistically longest resonse time in one set of character
         # is the valid character in mac 
         MAC_array[i] = max(dict_time.iteritems(), key=operator.itemgetter(1))[0]
         # clean the dictonary for next character
         dict_time.clear()
+
     print "mac: " + MAC
 
 
