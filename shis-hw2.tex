@@ -121,7 +121,7 @@ Script available in {\bf shis\_hw2\slash new\_exploit.c}
 1. How can you attack this?\\
 \begin{answer}
 Because the MAC verification process validates the MAC string character by character, and terminate on first incorrect character, plus there're some slow operation involved during the validation of each byte. A MAC starts with more number of correct characters takes longer to validate. \\
-So for a certain ticket, we can start with an arbitrary 32 bytes hex string MAC. From first character of MAC string we change it from 0 to F to see which particular value cause slower response time, that means the character is correct, and server proceeds to next character. To deal with the response time variation caused by network or other random issues, we should repeat the process for each character large number of times, and find the value that has longest response time statistically. Then apply this method to the following characters, eventually we will be able to deduce the correct MAC. 
+So for a certain ticket, we can start with an arbitrary 32 bytes hex string MAC. From first character of MAC string we change it from 0 to F to see which particular value cause slower response time, that means the character is correct, and server proceeds to next character. To deal with the response time variation caused by network or other random issues, we should repeat the process for each character large number of times, and find the value that has longest response time statistically (by average). Then apply this method to the following characters, eventually we will be able to deduce the correct MAC. 
 \end{answer}
 \bigskip
 
