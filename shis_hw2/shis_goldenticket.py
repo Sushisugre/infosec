@@ -85,7 +85,7 @@ def timing_attack():
     for i in range (0, 32):
         # One time result maybe unreliable, 
         for j in range (0, 16):
-            if i = 0:
+            if i == 0:
                 dict_progress.append([])
             for k in range (0, RETRY):
                 # from left to right, test the value of one byte
