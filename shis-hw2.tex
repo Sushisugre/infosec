@@ -70,7 +70,7 @@ Script available in {\bf shis\_hw2\slash shell.c}
 (1) Where is the vulnerability? \\
 \begin{answer}
 The faulty buffer used is {\bf newname} in function convert\_fileName, and global variable {\bf target}.\\
-Newname's offset to the value contained in ebp is {\bf4124}.\\
+Newname's offset to the value contained in ebp is {\bf-4124}.\\
 Address of target is {\bf 0x0804d180}\\
 \end{answer}
 \medskip
@@ -85,7 +85,7 @@ ploymorph.c: 200 in convert\_fileName  strcpy( newname, original );\\
 \medskip
 Other issues:\\
 ploymorph.c: 191-198 in convert\_fileName
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\linespread{0.5}]
 		for(i=0;i<strlen(original);i++){
 			if( isupper( original[i] ) ){
 				newname[i] = tolower( original[i] );
@@ -100,13 +100,23 @@ ploymorph.c: 191-198 in convert\_fileName
 
 2.2 Exploit the vulnerability\\
 \begin{answer}
-Script available in {\bf shis\_hw2\slash rtl\_exploit.c}
+Script available in {\bf shis\_hw2\slash rtl\_exploit.c}\\
+In this attack, the overflowed buffer change the stack of program from\\
+\lbrack  ...\rbrack\lbrack  ebp\rbrack \lbrack return address to main\rbrack \lbrack  arg 1 of convert\_fileName\rbrack \lbrack ... \rbrack \\
+to\\
+\lbrack  a...a\rbrack\lbrack  aaa\rbrack \lbrack entry of \_\_libc\_system\rbrack \lbrack  arg 1 of convert\_fileName\rbrack \lbrack address of /bin/sh\rbrack\lbrack  /bin/sh\rbrack 
 \end{answer}
 \medskip
 
 3. Escape from the Agent Smith\\
 \begin{answer}
-Script available in {\bf shis\_hw2\slash new\_exploit.c}
+Script available in {\bf shis\_hw2\slash new\_exploit.c}\\
+In this attack used the gadgets in polymorph as well as libc, to create a chain of instruction:\\
+pop \%ebx ret;  \hspace{1em} \# pop out the arg1 for convert\_fileName \\
+pop \%eax ret;  \hspace{1em}\# put the entry of \_\_libc\_system on stack, this instruction pop into eax\\  
+inc \%eax ; pop \%edi ; pop \%esi ; ret; \hspace{1em}\# increase the value of eax by 1 \\
+call \%eax \hspace{2.5em}\# call the function whose address stored in eax
+
 \end{answer}
 
 
@@ -121,7 +131,7 @@ Script available in {\bf shis\_hw2\slash new\_exploit.c}
 1. How can you attack this?\\
 \begin{answer}
 Because the MAC verification process validates the MAC string character by character, and terminate on first incorrect character, plus there're some slow operation involved during the validation of each byte. A MAC starts with more number of correct characters takes longer to validate. \\
-So for a certain ticket, we can start with an arbitrary 32 bytes hex string MAC. From first character of MAC string we change it from 0 to F to see which particular value cause slower response time, that means the character is correct, and server proceeds to next character. To deal with the response time variation caused by network or other random issues, we should repeat the process for each character large number of times, and find the value that has longest response time statistically (by average). Then apply this method to the following characters, eventually we will be able to deduce the correct MAC. 
+So for a certain ticket, we can start with an arbitrary 32 bytes hex string MAC. From first character of MAC string we change it from 0 to F to see which particular value cause slower response time, that means the character is correct, and server proceeds to next character. To deal with the response time variation caused by network or other random issues, we should repeat the process for each character large number of times, and find the value that has longest response time statistically. Then apply this method to the following characters, eventually we will be able to deduce the correct MAC. 
 \end{answer}
 \bigskip
 
