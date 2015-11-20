@@ -1,3 +1,7 @@
+# latex
+*.aux
 *.log
+*.synctex.gz
+
 *.tar.gz
 .DS_Store
