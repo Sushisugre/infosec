@@ -60,64 +60,85 @@
 \textbf{Problem \#1 : Running Kerberos and Wireshark}
 \end{center}
 \parskip 0pt
-1. Follow the white rabbit\\
+
+\begin{figure}[h]
+\centering
+  \includegraphics[scale=0.8]{duang.jpeg}\\
+ \caption{Modules of Gravel}
+ \end{figure}
+ 
+1. Why is the last step (Step 6) optional?\\
 \begin{answer}
-Script available in {\bf shis\_hw2\slash shell.c}
+aaa
 \end{answer}
 \medskip
 
-2. Take the red pill\\
-2.1 Analyze the vulnerability\\ 
-(1) Where is the vulnerability? \\
+2. kinit\\
+(a) Which version of Kerberos are you running? \\
 \begin{answer}
-The faulty buffer used is {\bf newname} in function convert\_fileName, and global variable {\bf target}.\\
-Newname's offset to the value contained in ebp is {\bf-4124}.\\
-Address of target is {\bf 0x0804d180}\\
+aaaa
 \end{answer}
 \medskip
 
-
-(2) Where is/are the insecure buffer fill(s) in the source code, operating on the buffer in (1)\\
+(b) What is the server name? (AS))\\
 \medskip
 \begin{answer}
 The buffer fills used in the exploit:\\
-ploymorph.c: 118 in grok\_commandLine	strcpy(target, optarg);\\
-ploymorph.c: 200 in convert\_fileName  strcpy( newname, original );\\
-\medskip
-Other issues:\\
-ploymorph.c: 191-198 in convert\_fileName
-\begin{lstlisting}[basicstyle=\linespread{0.5}]
-		for(i=0;i<strlen(original);i++){
-			if( isupper( original[i] ) ){
-				newname[i] = tolower( original[i] );
-				continue;
-			}
-			newname[i] = original[i];
-		}
-		newname[i] = '\0';
-\end{lstlisting}
 \end{answer}
 \medskip
 
-2.2 Exploit the vulnerability\\
+(c) What is the client name? (C)\\
 \begin{answer}
-Script available in {\bf shis\_hw2\slash rtl\_exploit.c}\\
-In this attack, the overflowed buffer change the stack of program from\\
-\lbrack  ...\rbrack\lbrack  ebp\rbrack \lbrack return address to main\rbrack \lbrack  arg 1 of convert\_fileName\rbrack \lbrack ... \rbrack \\
-to\\
-\lbrack  a...a\rbrack\lbrack  aaa\rbrack \lbrack entry of \_\_libc\_system\rbrack \lbrack  arg 1 of convert\_fileName\rbrack \lbrack address of /bin/sh\rbrack\lbrack  /bin/sh\rbrack 
+aaaaa
 \end{answer}
 \medskip
 
-3. Escape from the Agent Smith\\
+(d) What encryption method is being used?\\
 \begin{answer}
-Script available in {\bf shis\_hw2\slash new\_exploit.c}\\
-In this attack used the gadgets in polymorph as well as libc, to create a chain of instruction:\\
-pop \%ebx ret;  \hspace{1em} \# pop out the arg1 for convert\_fileName \\
-pop \%eax ret;  \hspace{1em}\# put the entry of \_\_libc\_system on stack, this instruction pop into eax\\  
-inc \%eax ; pop \%edi ; pop \%esi ; ret; \hspace{1em}\# increase the value of eax by 1 \\
-call \%eax \hspace{2.5em}\# call the function whose address stored in eax
+aaaaa
+\end{answer}
+\medskip
 
+(e) What is the encrypted value of the ticket TicketTGS in the lecture notes (use only the first 8 hexadecimal digits)?\\
+\medskip
+
+3. Provide the output of klist. How many tickets are currently valid? For how long are they valid? Who are the principals involved?\\
+
+\begin{answer}
+aaaaa
+\end{answer}
+\medskip
+
+4. AFS\\
+(a) Show the four Kerberos messages that preside over the establishment of the AFS connection.\\
+\begin{answer}
+aaaaa
+\end{answer}
+\medskip
+
+(b) What is the name of the AFS server? (V )\\
+\begin{answer}
+aaaaa
+\end{answer}
+\medskip
+
+(c) Show that the ticket(TicketTGS) the authentication server gave you is sent to the ticket granting server.\\
+\begin{answer}
+aaaaa
+\end{answer}
+\medskip
+
+(d) Identify the ticket that the TGS returned to you (T icketV ), and show that it is sent to the AFS server when you are trying to create the file 14741-test. Show only the first eight hexadecimal digits of the ticket.\\
+\begin{answer}
+aaaaa
+\end{answer}
+\medskip
+
+5. Once again, provide the output of klist. How many tickets are currently valid? For how long are they valid? Who are the principals involved?\\
+\medskip
+
+\begin{answer}
+aaa
 \end{answer}
 
 
@@ -126,28 +147,97 @@ call \%eax \hspace{2.5em}\# call the function whose address stored in eax
 %
 \newpage
 \begin{center}
-\textbf{Problem \#2 : Side Channel}
+\textbf{Problem \#2 : TPM, PHP, and HTTP}
 \end{center}
 
-1. How can you attack this?\\
+1. Explain why this reasoning is completely flawed.\\
 \begin{answer}
-Because the MAC verification process validates the MAC string character by character, and terminate on first incorrect character, plus there're some slow operation involved during the validation of each byte. A MAC starts with more number of correct characters takes longer to validate. \\
-So for a certain ticket, we can start with an arbitrary 32 bytes hex string MAC. From first character of MAC string we change it from 0 to F to see which particular value cause slower response time, that means the character is correct, and server proceeds to next character. To deal with the response time variation caused by network or other random issues, we should repeat the process for each character large number of times, and find the value that has longest response time statistically. Then apply this method to the following characters, eventually we will be able to deduce the correct MAC. 
+aaaaaa
 \end{answer}
 \bigskip
 
-2. Golden ticket\\
+2. Whether or not the TPM could prevent the attacks from succeeding. If the attacks can be foiled, explain how. If they cannot, state why:\\
 \begin{answer}
-Golden ticket : \{``username":``shis",``is\_admin":``true",``expired":``2022-01-31"\}\\
-MAC : 99c847dc21362f3fa5ccda858ddbbd7a\\
-Script available in {\bf shis\_hw2\slash shis\_goldenticket.py}\\
+aaaaaa
+
+\end{answer}
 \medskip
-Below is the list of supported argument, when running without arguments, the script generates MAC for the ticket above.\\
+
+3. Is the update procedure secure? Justify your answer, by either proving its security, or giving an example of attack against it.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
 \medskip
-Use ``-u" to provide a different username, e.g. ``instructor"\\
-Use ``-a" to provide admin setting, ``true" or ``false"\\
-Use ``-e" to provide expiration date, e.g. ``2016-01-31"\\
-Use ``-h" for more information\\
+
+%
+% Problem 3
+%
+\newpage
+\begin{center}
+\textbf{Problem \#3 : Alice and Bob getting married}
+\end{center}
+
+1. Which security property/ies Bob?s protocol enforces?\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+2. Show that Alice?s father is wrong ? in that one of the security properties Bob?s protocol enforces is not maintained anymore.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+3. Bob?s protocol unfortunately has a major problem: It is vulnerable to a replay attack in case the same message X is repeated over time. Enhance the protocol proposed by Bob to prevent this attack.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+4. Enhance the protocol proposed by Bob to provide the freshness property.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+
+%
+% Problem 4
+%
+\newpage
+\begin{center}
+\textbf{Problem \#4 : Finding open ports and bypassing firewalls}
+\end{center}
+
+1. Suggest a technique to exhaustively determine all the open TCP ports on a given host you want to attack.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+2. Harry Bovik claims the attack consumes a lot of memory on the attacker?s side. Is he right or not? Why?\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+3. Suggest an alternative method to determine all the open TCP ports on the host you want to attack.\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+4. Harry Bovik tells you that neither of these attacks work to determine all open ports on a packet filtering layer-3 firewall. Why is he right?\\
+\begin{answer}
+aaaaaa
+
+\end{answer}
+\medskip
+5. Suggest an extension to either of the above attacks that allows to figure out open ports on a firewall.\\
+\begin{answer}
+aaaaaa
 
 \end{answer}
 \medskip
