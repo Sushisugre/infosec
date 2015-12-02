@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Use timing attack to generate a valid MAC without secret key
+# List the Tor circuits used by this machine
 #
 # Author: Shi Su, AndrewId:shis
 # 12/01/2015
@@ -29,7 +29,9 @@ with Controller.from_port(port = CONTROL_PORT) as controller:
             desc = controller.get_network_status(fingerprint, None)
             address = desc.address if desc else 'unknown'
             bandwidth = desc.bandwidth if desc else 'unknown'
-            print(" |- %s: %s, %s" % (nickname, address, bandwidth))
+            country = controller.get_info("ip-to-country/%s" % address, 'unknown')
+            
+            print(" |- %s: %s, %s, %s" % (nickname, address, country, bandwidth))
             print(" %s----------- %s" % (div, fingerprint))
 
 # import stem

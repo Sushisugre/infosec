@@ -88,8 +88,12 @@ completed output available in {\bf shis\_hw4\slash whois.txt}
 
 2. Display all Tor circuits your machine currently uses, as specified by the list of three Tor relays.\\
 \begin{answer}
-Script available in {\bf shis\_hw4\slash rtl\_exploit.c}\\
-
+Script available in {\bf shis\_hw4\slash circuits.py}\\
+\begin{figure}[h]
+\centering
+  \includegraphics[scale=0.32]{circuits2.png}\\
+ \caption{Current Circuits}
+ \end{figure}
 \end{answer}
 \medskip
 
@@ -101,7 +105,7 @@ Script available in {\bf shis\_hw4\slash rtl\_exploit.c}\\
 1. Measures the difference between response times with or without going over Tor.\\
 \medskip
 \begin{answer}
-Script available in {\bf shis\_hw4\slash rtl\_exploit.c}\\
+Script available in {\bf shis\_hw4\slash measure\_latency.py}\\
 \end{answer}
 \medskip
 
@@ -124,18 +128,17 @@ aes256-cts-hmac-sha1-96
  \subsubsection*{1.3 Using exits to circumvent censorship}
 1. Try to connect to http://dogo.ece.cmu.edu/tor-homework/public/ and http:// dogo.ece.cmu.edu/tor-homework/secret/ using a regular browser. How different are the results?\\
 \begin{answer}
-First 8 hexadecimal digits: 72BE3CCE
-\begin{figure}[h]
-\centering
-  \includegraphics[scale=0.5]{ENCRYPT-TICKET.png}\\
- \caption{Encrypt Ticket}
- \end{figure}
+With regular browser, it returns {\bf 403 Forbidden}.\\
+With Tor browser, it shows {\bf the secret code is "sentientsheep"}
+
+
 \end{answer}
 \medskip
 
 2. Write a Stem script to constrain Tor to specific exits in different countries.\\
 \begin{answer}
-Script available in {\bf shis\_hw4\slash rtl\_exploit.c}\\
+Script available in {\bf shis\_hw4\slash exit\_node.py}\\
+This script assume that tor is installed and added to PATH
 \end{answer}
 \medskip
 
