@@ -34,18 +34,4 @@ with Controller.from_port(port = CONTROL_PORT) as controller:
             print(" |- %s: %s, %s, %s" % (nickname, address, country, bandwidth))
             print(" %s----------- %s" % (div, fingerprint))
 
-# import stem
-# import argparse
-# import sys
-
-# from stem.connection import connect
-
-# if __name__ == '__main__':
-#   controller = connect(('127.0.0.1', 9151))
-
-#   if not controller:
-#     sys.exit(1)  # unable to get a connection
-
-#   print 'Tor is running version %s' % controller.get_version()
-#   controller.close()
 

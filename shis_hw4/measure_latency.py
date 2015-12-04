@@ -13,6 +13,7 @@ from stem.control import Controller
 from stem.util import term
 from stem import Signal
 import argparse
+import numpy
 
 CONTROL_PORT = 9151
 SOCKS_PORT = 9150
@@ -88,17 +89,32 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     url = DEFAULT_URL if args.url is None else args.url
-    retry = DEFAULT_RETRY if args.retry is None else args.retry
+    retry = DEFAULT_RETRY if (args.retry is None) or (args.retry <= 0) else args.retry
 
 
-    direct = 0
-    tor = 0
+    t_directs = []
+    t_tors = []
+    diffs = []
+    diffs_abs = []
     for i in range(0,retry):
-        direct = direct + direct_response_time(url)
-        tor = tor + tor_response_time(url)
-    direct = direct / retry
-    tor = tor / retry
+        direct = direct_response_time(url)
+        tor = tor_response_time(url)
+        diff = tor - direct
+        diffs.append(diff)
+        diffs_abs.append(abs(diff))
+        t_directs.append(direct)
+        t_tors.append(tor)
+        print("Attempt %d - tor: %0.2f, direct: %0.2f, diff: %0.2f, abs diff: %0.2f" % \
+             (i + 1, tor, direct, diff, abs(diff)))
+    
 
+    arr_direct = numpy.array(t_directs)
+    arr_tor = numpy.array(t_tors)
+
+    print("************** Finished *************")
     print("Test URL: %s" % (url))
-    print("Average direct response time: %0.2fs" % (direct))
-    print("Average Tor response time %0.2fs" % (tor))
+    print("Max - direct: %0.2f, tor: %0.2f" % (sorted(t_directs)[-1], sorted(t_tors)[-1]))
+    print("Min - direct: %0.2f, tor: %0.2f" % (sorted(t_directs)[0], sorted(t_tors)[0]))
+    print("Average - direct: %0.2f, tor: %0.2f" % (sum(t_directs)/retry, sum(t_tors)/retry))
+    print("Median - direct: %0.2f, tor: %0.2f" % (numpy.median(arr_direct), numpy.median(arr_tor)))
+    print("Standard Diviation - direct: %0.2f, tor: %0.2f" % (numpy.std(arr_direct), numpy.std(arr_tor)))
