@@ -12,7 +12,8 @@ CONTROL_PORT = 9151
 
 with Controller.from_port(port = CONTROL_PORT) as controller:
     controller.authenticate()
-
+    
+    # interate through all the available circuit
     for circ in sorted(controller.get_circuits()):
         if circ.status != CircStatus.BUILT:
             continue
@@ -22,6 +23,7 @@ with Controller.from_port(port = CONTROL_PORT) as controller:
         print(" |- Nickname: IP, country, bandwidth")
         print(" |----------- fingerprint")
 
+        # interate through the entries in a circuit
         for i, entry in enumerate(circ.path):
             div = '+' if (i == len(circ.path) - 1) else '|'
             fingerprint, nickname = entry

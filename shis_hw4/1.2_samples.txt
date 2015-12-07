@@ -1,0 +1,75 @@
+Attempt 1 - direct: 0.25, tor: 12.68
+Attempt 2 - direct: 0.91, tor: 12.19
+Attempt 3 - direct: 0.26, tor: 1.42
+Attempt 4 - direct: 0.26, tor: 1.19
+Attempt 5 - direct: 0.18, tor: 1.15
+Attempt 6 - direct: 0.27, tor: 0.95
+Attempt 7 - direct: 0.26, tor: 1.11
+Attempt 8 - direct: 0.27, tor: 1.25
+Attempt 9 - direct: 0.19, tor: 1.05
+Attempt 10 - direct: 0.27, tor: 0.98
+************** Finished *************
+Test URL: https://stem.torproject.org/tutorials/to_russia_with_love.html
+Max - direct: 0.91, tor: 12.68
+Min - direct: 0.18, tor: 0.95
+Average - direct: 0.31, tor: 3.40
+Median - direct: 0.26, tor: 1.17
+Standard Diviation - direct: 0.20, tor: 4.52
+
+
+Attempt 1 - tor: 1.03, direct: 0.28, diff: 0.75, abs diff: 0.75, rank: 6 
+Attempt 2 - tor: 0.92, direct: 0.18, diff: 0.75, abs diff: 0.75, rank: 6
+Attempt 3 - tor: 0.94, direct: 0.26, diff: 0.69, abs diff: 0.69, rank: 2.5
+Attempt 4 - tor: 0.95, direct: 0.26, diff: 0.69, abs diff: 0.69, rank: 2.5
+Attempt 5 - tor: 1.01, direct: 0.26, diff: 0.74, abs diff: 0.74, rank: 4 
+Attempt 6 - tor: 0.94, direct: 0.18, diff: 0.75, abs diff: 0.75, rank: 6
+Attempt 7 - tor: 1.06, direct: 0.19, diff: 0.87, abs diff: 0.87, rank: 8
+Attempt 8 - tor: 0.90, direct: 0.27, diff: 0.63, abs diff: 0.63, rank: 1
+Attempt 9 - tor: 1.47, direct: 0.26, diff: 1.21, abs diff: 1.21, rank: 9
+Attempt 10 - tor: 1.46, direct: 0.18, diff: 1.28, abs diff: 1.28, rank: 10
+************** Finished *************
+Test URL: https://stem.torproject.org/tutorials/to_russia_with_love.html
+Max - direct: 0.28, tor: 1.47
+Min - direct: 0.18, tor: 0.90
+Average - direct: 0.23, tor: 1.07
+Median - direct: 0.26, tor: 0.98
+Standard Diviation - direct: 0.04, tor: 0.20
+
+
+Attempt 1 - direct: 0.04, tor: 5.59
+Attempt 2 - direct: 0.01, tor: 1.68
+Attempt 3 - direct: 0.00, tor: 1.61
+Attempt 4 - direct: 0.01, tor: 1.81
+Attempt 5 - direct: 0.00, tor: 3.63
+Attempt 6 - direct: 0.01, tor: 0.74
+Attempt 7 - direct: 0.01, tor: 0.95
+Attempt 8 - direct: 0.01, tor: 0.76
+Attempt 9 - direct: 0.00, tor: 0.78
+Attempt 10 - direct: 0.01, tor: 0.75
+************** Finished *************
+Test URL: http://3g2upl4pq6kufc4m.onion/
+Max - direct: 0.04, tor: 5.59
+Min - direct: 0.00, tor: 0.74
+Average - direct: 0.01, tor: 1.83
+Median - direct: 0.01, tor: 1.28
+Standard Diviation - direct: 0.01, tor: 1.51
+
+Attempt 1 - direct: 0.15, tor: 11.86
+Attempt 2 - direct: 0.11, tor: 1.43
+Attempt 3 - direct: 0.11, tor: 1.52
+Attempt 4 - direct: 0.11, tor: 1.29
+Attempt 5 - direct: 0.10, tor: 1.26
+Attempt 6 - direct: 0.11, tor: 1.27
+Attempt 7 - direct: 0.10, tor: 1.43
+Attempt 8 - direct: 0.14, tor: 1.27
+Attempt 9 - direct: 0.11, tor: 1.00
+Attempt 10 - direct: 0.10, tor: 0.87
+************** Finished *************
+Test URL: https://duckduckgo.com/
+Max - direct: 0.15, tor: 11.86
+Min - direct: 0.10, tor: 0.87
+Average - direct: 0.11, tor: 2.32
+Median - direct: 0.11, tor: 1.28
+Standard Diviation - direct: 0.02, tor: 3.18
+
+

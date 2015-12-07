@@ -97,8 +97,10 @@ if __name__ == "__main__":
     diffs = []
     diffs_abs = []
     for i in range(0,retry):
+        # get response time with / without Tor
         direct = direct_response_time(url)
         tor = tor_response_time(url)
+        # get different and absolute different for wilconxon 
         diff = tor - direct
         diffs.append(diff)
         diffs_abs.append(abs(diff))

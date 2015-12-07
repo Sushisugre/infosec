@@ -110,6 +110,7 @@ It assumes that {\bf tor} is installed and already launched tor with {\bf Contro
 \medskip
 \begin{answer}
 Script available in {\bf shis\_hw4\slash measure\_latency.py}\\
+This script is used in 1.2.2 and 1.2.3\\
 It assumes that {\bf tor} is installed and already launched with {\bf SocksPort: 9150, ControlPort: 9151}\\
 It assumes that {\bf PycURL} module is installed.\\
 \medskip
@@ -152,15 +153,15 @@ Test URL: https://stem.torproject.org/tutorials/to\_russia\_with\_love.html\\
 \hline
 \end{tabu}\\
 \bigskip
-Using Wilcoxon Signed-Rank Test with the data above, we got test statistic value:\\
+Using {\bf Wilcoxon Signed-Rank Test} with the data above, we got test statistic value:\\
  \(T_-= 0\) \hspace{1em} \(T_+= | 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 | = 55\)\\
  \medskip
 And we're trying to prove hypothesis \(H_1\) over \(H_0\):\\
 \(H_0\): Distribution of response time of Tor(\(D_T\)) and direct connection(\(D_D\)) are identical\\
-\(H_1\), \(D_T\) is the right shifted of the \(D_D\), i.e. most of Tor connection response time are longer than direct connection\\
- \medskip
+\(H_1\), \(D_T\) is the right shifted of the \(D_D\), i.e. latency of Tor is higner than direct connection\\
+\(H_1\), \(D_T\) is the left shifted of the \(D_D\), i.e. latency of Tor is lower than direct connection\\ \medskip
 Because we're testing \(D_T\) is the right shifted of the \(D_D\), so we will use test statistic \(T_-=0\)\\
-Critical Values \(T_0 = 5\) in Wilcoxon Signed Rank one-tailed test when n=10, \(\alpha\) = 0.01 [1]\\
+Critical Values \(T_0 = 5\) in Wilcoxon Signed Rank one-tailed test when {\bf n=10, \(\alpha\) = 0.01} [1]\\
  \(T_- <= T_0\),  \(T_-\)  falls in the rejection region of \(T_0\)\\
 So the data provide sufficient evidence to conclude that  \(D_T\) is the right shifted of  \(D_D\), at \(\alpha\) = 0.01.
 i.e. The latency for Tor connection is higher than direct connection.\\
@@ -244,7 +245,7 @@ Using Wilcoxon Signed-Rank Test with the data above, we got test statistic value
 So the data provide sufficient evidence to conclude that  \(D_H\) is the right shifted of  \(D_C\), at \(\alpha\) = 0.01.
 i.e. The latency for hidden service is higher than the clearnet version not going over Tor.\\
 \smallskip
-Connections with the Tor hidden services are going through Tor circuits, which are already all encrypted, so there's no need for https to reenforce confidentiality. Also the address of a hidden service came from the hash of the hidden service's public key, thus Tor client can verify the address using the public key got from the directory servers, there's no need for a CA in https model to sign a certification.
+Connections with the Tor hidden services are going through Tor circuits, which are already all encrypted, so there's no need for https to reenforce confidentiality. Also the address of a hidden service came from the hash of the hidden service's public key, thus Tor client can verify the address using the public key got from the directory servers, so the CA to sign certifications in https model is not required.
 
 \end{answer}
 \medskip
@@ -280,6 +281,7 @@ Use ``-r" to set number of s to switch circuit for exist nodes in a country\\
 
 3. Use your script to find as many countries as possible in which the website http://dogo.ece. cmu.edu/tor-homework/secret/ is not blocked. Provide a list of these countries, as well as the exact date/time at which you made each request verifying that each of these countries was not blocked.\\
 \begin{answer}
+Using the script in 1.3.2, I was able to connect to the secret website from the ExitNodes in following countries.\\
 Find GB returns 200, 2015-12-02 03:16:32\\
 Find RU returns 200, 2015-12-02 03:16:35\\
 Find FR returns 200, 2015-12-02 03:17:19\\
@@ -305,13 +307,24 @@ Find SE returns 200, 2015-12-02 11:14:24\\
 \end{center}
 
 1. Decide whether you support banning the design and use of anonymous networks or not, and prepare four arguments to support your position, and one mitigating factor \\
+\bigskip
 \begin{answer}
-I oppose banning anonymous networks.
+I oppose banning anonymous networks.\\
+Anonymous network provides a cheaply accessible channel for people to communicate without the fear for the hurts or embarrassments that are likely to occur if their identities are reviewed. It protects people in some special positions like journalists and dissidents as well as common people who values their privacies.\\
+
+As mentioned above, a lot of users with legitimate purposes benefits from anonymous networks, and they generally don?t attract public attention, while in the contrast, those bad incidents related to Tor, anonymous network or any other unfamiliar techniques will make an interesting news. Like the maintainer of Tor said ``Often people don't have a good measure of how many polite Tor users are connecting to their service, you never notice them until there's an impolite one."[2] It?s far from advisable to ban a wildly desired channel simply for those over magnified issues.\\
+
+Also it?s difficult to carry out and enforce the bill to ban the design and use of anonymous network, for even a complicated anonymous network like Tor are consist of basic cryptography primitives and network operations. It's impractical to ban those building blocks and hard to restrain their combination to limit the outcome. It will either leave ambiguity in the bill/law or make the bill/law easy to bypass by simple variations.\\
+
+And back to the original issue about WikiLeaks, the information is submitted to WikiLeaks voluntarily means the root cause of sensitive information leaking probably lies in the poor access control and lack of audit trail. If the source is not controlled, banning one channel only makes information flow to other new and sneakier ones.\\
+
+But still we cannot deny that anonymous networks have been used for illegal activities, and made them harder to trace. Which to certain degree, lowers the cost of some illegal action like copyright violation while making the cost to address those issue higher.\\
 
 \end{answer}
 \bigskip
 
-[1] Stat.ufl.edu,. (2015). Retrieved 4 Dec. 2015, from http://www.stat.ufl.edu/~winner/tables/wilcox\_signrank.pdf
+[1] Stat.ufl.edu,. (2015). Retrieved 4 Dec. 2015, from http://www.stat.ufl.edu/~winner/tables/wilcox\_signrank.pdf\\
 
+[2] The Tor Project, I. (2015). Tor Project: Abuse FAQ. Torproject.org. Retrieved 4 December 2015, from https://www.torproject.org/docs/faq-abuse.html.en\#Bans
 
 \end{document}
