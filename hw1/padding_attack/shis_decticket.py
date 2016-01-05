@@ -3,7 +3,7 @@
 # Use padding oracle to decrypt DES encrypted message
 # If no cipher is specified through -c, decrypted the ticket provided in the homework
 #
-# Create by: Shi Su, AndrewId:shis
+# Author: Shi Su, AndrewId:shis
 # 10/06/2015
 
 import httplib

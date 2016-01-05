@@ -6,7 +6,7 @@ from shis_decticket import get_padding_num, hasValidPadding
 
 # Use padding oracle to encrypt message
 #
-# Create by: Shi Su, AndrewId:shis
+# Author: Shi Su, AndrewId:shis
 # 10/08/2015
 
 BLOCK_SIZE = 8
