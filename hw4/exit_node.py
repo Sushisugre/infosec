@@ -10,10 +10,13 @@ import io
 import pycurl
 import stem.process
 import datetime
-from stem.control import Controller
+#from stem.control import Controller
 from stem.util import term
 from stem import Signal
 import argparse
+import functools
+from stem import StreamStatus
+from stem.control import EventType, Controller
 
 CONTROL_PORT = 9151
 SOCKS_PORT = 9150
@@ -67,12 +70,26 @@ def tor_connection(url):
 
 def reset_identity():
     with Controller.from_port(port = CONTROL_PORT) as controller:
-        controller.authenticate()
+        controller.authenticate()        
         controller.signal(Signal.NEWNYM)
 
-# Start an instance of Tor configured to only exit through Russia. This prints
-# Tor's bootstrap information as it starts. Note that this likely will not
-# work if you have another Tor instance running.
+# event listener
+def stream_event(controller, event):
+  if event.status == StreamStatus.SUCCEEDED and event.circ_id:
+    circ = controller.get_circuit(event.circ_id)
+
+    exit_fingerprint = circ.path[-1][0]
+    exit_relay = controller.get_network_status(exit_fingerprint)
+
+    #print("Exit relay for our connection to %s" % (event.target))
+    print(" Country: %s, ip: %s:%i" % (exit_relay.address, 
+                exit_relay.or_port,
+                controller.get_info("ip-to-country/%s" % exit_relay.address, 'unknown')))
+    #print("  fingerprint: %s" % exit_relay.fingerprint)
+    #print("  nickname: %s" % exit_relay.nickname)
+    #print("  locale: %s" % controller.get_info("ip-to-country/%s" % exit_relay.address, 'unknown'))
+    #print("")
+
 
 def print_bootstrap_lines(line):
   if "Bootstrapped " in line:
@@ -88,12 +105,21 @@ def launch_tor(country):
                 'ControlPort': str(CONTROL_PORT),
                 'ExitNodes': "{"+country+"}",
             },
-            timeout = 40,
+            timeout = 30,
             # init_msg_handler = print_bootstrap_lines,
         )
+    # finally:
+    #     print("test")
     except OSError: 
         print("Timeout when trying to find relay....")
         return 0
+
+            # Add listener
+    with Controller.from_port(port = CONTROL_PORT) as controller:
+        controller.authenticate()
+        stream_listener = functools.partial(stream_event, controller)
+        controller.add_event_listener(stream_listener, EventType.STREAM)
+
     return tor_process
 
 
